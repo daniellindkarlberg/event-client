@@ -20,7 +20,7 @@ import { filter, finalize, map, switchMap, takeUntil, tap } from 'rxjs/operators
 export class ImageSelectComponent implements OnInit, OnDestroy {
   @Input() set src(src: string) {
     this.imageSrc = src;
-    if (!!src) {
+    if (src) {
       this.showInfo = true;
     }
   }
