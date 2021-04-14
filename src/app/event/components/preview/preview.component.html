@@ -1,0 +1,64 @@
+<div
+  class="preview"
+  [ngClass]="{
+    desktop: platform === Platform.DESKTOP,
+    mobile: platform === Platform.MOBILE
+  }"
+>
+  <div class="platform">
+    <span>{{ platform === Platform.DESKTOP ? 'Desktop' : 'Mobile' }} Preview</span>
+    <div class="icons">
+      <mat-icon
+        [ngClass]="{ active: platform === Platform.DESKTOP }"
+        (click)="platform = Platform.DESKTOP"
+      >
+        desktop_mac
+      </mat-icon>
+      <mat-icon
+        [ngClass]="{ active: platform === Platform.MOBILE }"
+        (click)="platform = Platform.MOBILE"
+      >
+        phone_android
+      </mat-icon>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="photo" [style.background]="background">
+      <img *ngIf="imageSrc" [style.top.px]="photoPositionTop" [src]="imageSrc" alt="photo" />
+    </div>
+    <div class="content-top">
+      <div class="calendar">
+        <div class="top"></div>
+        <div class="day">{{ day }}</div>
+      </div>
+      <div class="date">{{ formattedStartDate }} AT {{ startTime }}</div>
+      <div class="name" [style.color]="color">{{ name }}</div>
+      <div class="name untitled" *ngIf="!name">Event Name</div>
+      <div class="location">{{ location.address }}</div>
+    </div>
+
+    <div class="details">
+      <div class="card">
+        <div class="header">Going</div>
+        <div class="row">
+          <mat-icon>people</mat-icon>
+          <div>1 person going, including {{ host.nickname }}</div>
+        </div>
+        <div class="row guests">
+          <img [src]="host.picture" alt="Avatar" class="avatar" />
+        </div>
+        <div class="row">
+          <mat-icon>access_time_filled</mat-icon>
+          <div>{{ formattedStartDate }} AT {{ startTime }}</div>
+        </div>
+        <div class="header description">Description</div>
+        <textarea readonly cols="30" rows="20" [value]="description"></textarea>
+      </div>
+      <div class="card">
+        <app-map *ngIf="locationSelected" [location]="location" [readonly]="true"></app-map>
+        <span>{{ location.address }}</span>
+      </div>
+    </div>
+  </div>
+</div>

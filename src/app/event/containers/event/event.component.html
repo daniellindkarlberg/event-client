@@ -1,0 +1,60 @@
+<div *ngIf="!(loading$ | async)" class="container">
+  <div class="photo" [style.background]="background">
+    <img [style.top.px]="event.photo.positionTop" [src]="event.photo.imgUrl" alt="image" />
+  </div>
+
+  <div class="header-event">
+    <div class="calendar">
+      <div class="top"></div>
+      <div class="day">{{ event.startDate | day }}</div>
+    </div>
+    <div class="date">
+      {{ event.startDate | dateAndTime }}
+    </div>
+    <div class="name" [style.color]="event.theme.primaryColor">
+      {{ event.name }}
+    </div>
+    <div>{{ event.location.address }}</div>
+  </div>
+
+  <div class="menu">
+    <mat-icon class="chat" [style.color]="event.theme.primaryColor" (click)="openMessenger()">
+      chat
+    </mat-icon>
+
+    <div class="actions">
+      <div *ngIf="currentUserAttending" class="action">
+        <mat-icon>send</mat-icon>
+        <div>Invite</div>
+      </div>
+      <div *ngIf="event.host.id === currentUserId" class="action" (click)="edit()">
+        <mat-icon>create</mat-icon>
+        <div>Edit</div>
+      </div>
+    </div>
+  </div>
+  <div class="details">
+    <div class="card">
+      <div class="header-details">Going</div>
+      <div class="row">
+        <mat-icon>people</mat-icon>
+        <div>1 person going, including {{ event.host.nickname }}</div>
+      </div>
+      <div class="row guests">
+        <img [src]="event.host.picture" alt="Avatar" class="avatar" />
+      </div>
+      <div class="row date">
+        <mat-icon>access_time_filled</mat-icon>
+        <div>{{ event.startDate | dateAndTime }}</div>
+      </div>
+      <div class="header-details">Description</div>
+      <div>{{ event.description }}</div>
+    </div>
+    <div class="card">
+      <app-map [location]="event.location" [readonly]="true"></app-map>
+      <span>{{ event.location.address }}</span>
+    </div>
+  </div>
+</div>
+
+<app-loader *ngIf="loading$ | async"></app-loader>

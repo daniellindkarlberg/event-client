@@ -1,0 +1,25 @@
+<ng-container *ngIf="!readonly">
+  <app-places-input [value]="location.address" (locationChange)="change($event)"></app-places-input>
+</ng-container>
+
+<agm-map
+  *ngIf="customSize"
+  [style.width.px]="450"
+  [style.height.px]="450"
+  [latitude]="location.latitude"
+  [longitude]="location.longitude"
+  [styles]="mapTypeStyle"
+  [zoom]="zoom"
+>
+  <agm-marker [latitude]="location.latitude" [longitude]="location.longitude"></agm-marker>
+</agm-map>
+
+<agm-map
+  *ngIf="!customSize"
+  [latitude]="location.latitude"
+  [longitude]="location.longitude"
+  [styles]="mapTypeStyle"
+  [zoom]="zoom"
+>
+  <agm-marker [latitude]="location.latitude" [longitude]="location.longitude"></agm-marker>
+</agm-map>

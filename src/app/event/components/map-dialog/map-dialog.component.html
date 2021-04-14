@@ -1,0 +1,14 @@
+<mat-dialog-content>
+  <app-map
+    [location]="location"
+    [customSize]="true"
+    [width]="500"
+    [height]="500"
+    (locationChange)="locationChange($event)"
+  ></app-map>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button (click)="close()">Close</button>
+  <button mat-raised-button color="accent" (click)="save()">Save</button>
+</mat-dialog-actions>

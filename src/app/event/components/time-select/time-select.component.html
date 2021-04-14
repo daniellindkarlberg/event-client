@@ -1,0 +1,8 @@
+<mat-form-field appearance="outline" [ngClass]="{ error: error }">
+  <mat-label>{{ label }}</mat-label>
+  <mat-select [(ngModel)]="selected" (selectionChange)="change($event)">
+    <mat-option *ngFor="let option of options" [value]="option.hour">
+      {{ option.hour }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

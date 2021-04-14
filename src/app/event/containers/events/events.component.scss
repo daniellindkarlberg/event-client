@@ -1,0 +1,50 @@
+@import 'variables';
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 260px);
+  grid-auto-rows: 260px;
+  grid-gap: 25px;
+  justify-content: center;
+  margin: 60px;
+  padding: 25px;
+  font-family: $poppins;
+  color: $black;
+  border-radius: 6px;
+}
+
+.event {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  background-color: $white;
+  border-radius: 6px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+
+  img {
+    height: 200px;
+    width: auto;
+    vertical-align: middle;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+  }
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+.content {
+  padding: 10px;
+  line-height: 1.2;
+}
+
+.date {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.name {
+  font-size: 18px;
+  font-weight: 700;
+}

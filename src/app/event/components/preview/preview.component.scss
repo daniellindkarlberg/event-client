@@ -1,0 +1,196 @@
+@import 'variables';
+:host {
+  background-color: $medium-grey;
+  font-size: 16px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+}
+
+.preview {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 130px);
+  padding: 0 15px 15px 15px;
+  background-color: $white;
+  box-shadow: $box-shadow-1;
+  border-radius: 10px;
+  margin: 40px auto;
+
+  &.desktop {
+    max-width: 900px;
+  }
+
+  &.mobile {
+    max-width: 550px;
+  }
+}
+
+.platform {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 500;
+
+  mat-icon {
+    cursor: pointer;
+    padding: 6px;
+    color: #757575;
+
+    &.active {
+      color: $light-orange;
+    }
+  }
+
+  mat-icon:hover {
+    background-color: $medium-grey;
+    border-radius: 50%;
+  }
+
+  .icons {
+    display: flex;
+    justify-content: space-between;
+    width: 60px;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid $light-grey;
+  border-radius: 10px;
+  overflow-y: scroll;
+  height: 100vh;
+}
+
+.photo {
+  min-height: 250px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border-radius: 10px;
+
+  img {
+    position: relative;
+    height: 130%;
+    max-width: 650px;
+  }
+}
+
+.content-top {
+  display: flex;
+  flex-direction: column;
+  padding: 30px 0 10px 20px;
+  position: relative;
+}
+
+.calendar {
+  position: absolute;
+  background-color: $white;
+  top: -50px;
+  width: 80px;
+  height: 80px;
+  box-shadow: $box-shadow-1;
+  border-radius: 5px;
+
+  .top {
+    background-color: $calendar-red;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    height: 20px;
+  }
+
+  .day {
+    font-size: 40px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+  }
+}
+
+.date {
+  color: $calendar-red;
+  padding: 10px 0;
+  text-transform: uppercase;
+  font-size: 16px;
+  padding-top: 15px;
+  font-weight: bold;
+}
+
+.name {
+  font-size: 26px;
+  font-weight: bold;
+  word-break: break-all;
+
+  &.untitled {
+    opacity: 0.2;
+  }
+}
+
+.details {
+  background-color: $medium-grey;
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+}
+
+.card {
+  flex: 1;
+  min-width: 300px;
+  height: 220px;
+  background-color: $white;
+  border-radius: 5px;
+  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  margin: 15px;
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
+
+  .avatar {
+    vertical-align: middle;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+  }
+
+  mat-icon {
+    color: $light-orange;
+    margin-right: 5px;
+  }
+
+  textarea {
+    border: none;
+    font-size: 16px;
+    font-family: inherit;
+    resize: none;
+    outline: none;
+  }
+}
+
+.guests {
+  margin: 15px 30px;
+}
+
+.description {
+  margin-top: 10px;
+}
+
+.location {
+  margin-top: 10px;
+}
+
+app-map {
+  margin-bottom: 10px;
+}

@@ -1,0 +1,75 @@
+@import 'variables';
+@import 'mixins';
+
+.message {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+
+  .content {
+    display: flex;
+    align-items: flex-end;
+
+    &.self {
+      justify-content: flex-end;
+    }
+  }
+}
+
+.text {
+  color: $black;
+  background-color: #e3e6eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  padding: 5px 10px;
+  max-width: 220px;
+
+  word-break: break-all;
+
+  &.dark {
+    color: #e4e6eb;
+    background-color: #3e4042;
+  }
+
+  &.self {
+    @include message-theme;
+    background-color: $classic;
+    color: $white;
+    background-attachment: fixed;
+  }
+}
+
+.avatar {
+  vertical-align: middle;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+img {
+  cursor: pointer;
+  max-width: 200px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.nickname {
+  margin-top: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  color: $dark-mode-text;
+}
+
+.time {
+  font-size: 12px;
+  display: flex;
+  color: $dark-mode-text;
+
+  &.self {
+    justify-content: flex-end;
+  }
+}

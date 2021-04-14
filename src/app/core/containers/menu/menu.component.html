@@ -1,0 +1,21 @@
+<div class="menu">
+  <div class="logo"></div>
+  <div class="navigation">
+    <div class="item" (click)="navigateToEvents.emit()">
+      <mat-icon>event</mat-icon>
+      <div>Events</div>
+    </div>
+    <div class="item" (click)="navigateToCreateEvent.emit()">
+      <mat-icon>add_circle</mat-icon>
+      <div>Create Event</div>
+    </div>
+    <div class="item">
+      <mat-icon>manage_accounts</mat-icon>
+      <div>Settings</div>
+    </div>
+    <div class="item" (click)="logout.emit()">
+      <mat-icon>logout</mat-icon>
+      <div>Logout</div>
+    </div>
+  </div>
+</div>

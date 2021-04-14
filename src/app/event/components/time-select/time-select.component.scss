@@ -1,0 +1,9 @@
+@import 'variables';
+
+::ng-deep .mat-form-field {
+  &.error {
+    .mat-form-field-outline {
+      color: $warning;
+    }
+  }
+}

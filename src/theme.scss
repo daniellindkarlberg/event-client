@@ -1,0 +1,20 @@
+@import "~@angular/material/theming";
+@import 'variables';
+@include mat-core();
+
+$event-custom-primary: mat-palette($mat-deep-orange);
+$event-custom-accent: mat-palette($mat-deep-orange, 100, 500, A100);
+$event-custom-warn: mat-palette($mat-red);
+
+$custom-typography: mat-typography-config(
+  $font-family: $poppins
+);
+
+$event-custom-theme: mat-light-theme(
+  $event-custom-primary,
+  $event-custom-accent,
+  $event-custom-warn
+);
+
+@include angular-material-theme($event-custom-theme);
+@include angular-material-typography($custom-typography);

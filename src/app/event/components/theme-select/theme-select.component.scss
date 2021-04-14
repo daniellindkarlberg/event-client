@@ -1,0 +1,42 @@
+@import 'variables';
+@import 'mixins';
+
+mat-panel-title {
+  align-items: center;
+  justify-content: center;
+}
+
+mat-icon {
+  color: $light-orange;
+  margin-right: 10px;
+}
+
+.themes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 50px);
+  grid-auto-rows: 50px;
+  grid-gap: 10px;
+  justify-content: center;
+}
+
+.theme-background {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  width: 50px;
+  height: 50px;
+  margin: 0 5px 5px 0;
+
+  &.selected {
+    background-color: $light-grey;
+  }
+}
+
+.theme {
+  @include message-theme;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}

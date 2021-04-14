@@ -1,0 +1,75 @@
+@import 'variables';
+
+:host {
+  width: 320px;
+  height: 220px;
+  border: 1px solid $light-grey;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.tracker {
+  z-index: 2;
+  width: 320px;
+  height: 220px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  cursor: move;
+}
+
+img {
+  position: relative;
+  width: 100%;
+  height: 130%;
+  user-select: none;
+}
+
+input[type='file'] {
+  display: none;
+}
+
+.file-input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $light-grey;
+  border-radius: 5px;
+  padding: 10px 12px;
+  cursor: pointer;
+  max-width: 150px;
+}
+
+.delete {
+  z-index: 4;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  user-select: none;
+
+  mat-icon {
+    transform: scale(1.5);
+    color: $white;
+  }
+}
+
+.info {
+  z-index: 6;
+  position: absolute;
+  top: 80px;
+  left: 80px;
+  padding: 5px 10px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $white;
+}

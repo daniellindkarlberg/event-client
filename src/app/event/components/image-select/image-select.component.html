@@ -1,0 +1,34 @@
+<ng-container *ngIf="imageSrc">
+  <img [style.top.px]="posY" [src]="imageSrc" alt="image" />
+  <div class="delete">
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" yPosition="above">
+      <button mat-menu-item (click)="fileUpload.click()">
+        <mat-icon>file_upload</mat-icon>
+        <span>Select</span>
+      </button>
+      <button mat-menu-item (click)="reset()">
+        <mat-icon color="warn">delete</mat-icon>
+        <span>Delete</span>
+      </button>
+    </mat-menu>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="!imageSrc">
+  <label class="file-input" (click)="fileUpload.click()">
+    <mat-icon>insert_photo</mat-icon>
+    Select Photo
+  </label>
+</ng-container>
+
+<div class="info" *ngIf="showInfo">
+  <mat-icon>open_with</mat-icon>
+  Drag to reposition
+</div>
+
+<div class="tracker" #trackerRef [style.visibility]="imageSrc ? 'visible' : 'hidden'"></div>
+
+<input #fileUpload type="file" accept="image/*" (change)="select($event)" />

@@ -1,0 +1,82 @@
+// COLORS
+$white: #ffffff;
+$black: #111111;
+$light-orange: #ff8a65;
+$light-grey: #e0e0e0;
+$medium-grey: #f5f5f5;
+$warning: #e53935;
+$calendar-red: #f44336;
+$dark-mode-primary: #252526;
+$dark-mode-secondary: #3a3b3c;
+$dark-mode-text: #8a8d91;
+
+// BOX SHADOWS
+$box-shadow-1: 0px 0px 23px 0px rgba(0, 0, 0, 0.2);
+
+// FONTS
+$poppins: 'Poppins', sans-serif;
+
+// THEMES
+$rose: rgb(255, 49, 30);
+$classic: rgb(0, 153, 255);
+$tulip: rgb(251, 69, 222);
+$kiwi: rgb(110, 223, 0);
+$peach: rgb(242, 92, 84);
+$monochrome: rgb(96, 96, 96);
+$ocean: rgb(77, 62, 194);
+$honey: rgb(250, 175, 0);
+$lavender: rgb(167, 151, 255);
+$apple: rgb(170, 50, 50);
+
+$red: rgb(239, 83, 80);
+$pink: rgb(236, 64, 122);
+$purple: rgb(171, 71, 188);
+$deep-purple: rgb(126, 87, 194);
+$indigo: rgb(92, 107, 192);
+$blue: rgb(66, 165, 245);
+$light-blue: rgb(41, 182, 246);
+$cyan: rgb(38, 198, 218);
+$teal: rgb(38, 166, 154);
+$green: rgb(102, 187, 106);
+$light-green: rgb(156, 204, 101);
+$lime: rgb(212, 225, 87);
+$amber: rgb(255, 202, 40);
+$deep-orange: rgb(255, 112, 67);
+$brown: rgb(141, 110, 99);
+$grey: rgb(189, 189, 189);
+$blue-grey: rgb(120, 144, 156);
+$black: rgb(0, 0, 0);
+
+$tie-dye: linear-gradient(rgb(0, 82, 205) 0%, rgb(0, 161, 230) 50%, rgb(0, 82, 205) 100%);
+$tropical: linear-gradient(rgb(42, 127, 227) 0%, rgb(0, 191, 145) 50%, rgb(159, 213, 45) 100%);
+$shadow: linear-gradient(rgb(94, 0, 126) 0%, rgb(51, 18, 144) 50%, rgb(40, 37, 181) 100%);
+$unicorn: linear-gradient(rgb(251, 69, 222) 0%, rgb(132, 29, 213) 50%, rgb(58, 29, 138) 100%);
+$lollipop: linear-gradient(rgb(255, 98, 91) 0%, rgb(197, 50, 173) 50%, rgb(77, 62, 194) 100%);
+$chill: linear-gradient(rgb(140, 179, 255) 0%, rgb(64, 159, 255) 100%);
+$citrus: linear-gradient(rgb(255, 210, 0) 0%, rgb(110, 223, 0) 50%, rgb(0, 223, 187) 100%);
+$rocket: linear-gradient(rgb(250, 175, 0) 0%, rgb(255, 46, 46) 50%, rgb(58, 18, 255) 100%);
+$candy: linear-gradient(rgb(255, 143, 178) 0%, rgb(167, 151, 255) 50%, rgb(0, 229, 255) 100%);
+$berry: linear-gradient(rgb(0, 95, 255) 0%, rgb(146, 0, 255) 50%, rgb(255, 46, 25) 100%);
+$sushi: linear-gradient(rgb(242, 92, 84) 0%, rgb(244, 132, 95) 50%, rgb(247, 178, 103) 100%);
+$tiny-tan: linear-gradient(rgb(242, 157, 214) 0%, rgb(184, 65, 217) 50%, rgb(157, 82, 255) 100%);
+$pride: linear-gradient(
+  rgb(255, 0, 24) 0%,
+  rgb(255, 4, 23) 6.25%,
+  rgb(255, 49, 14) 12.5%,
+  rgb(255, 93, 6) 18.75%,
+  rgb(255, 122, 1) 25%,
+  rgb(255, 135, 1) 31.25%,
+  rgb(255, 176, 1) 37.5%,
+  rgb(217, 197, 7) 43.75%,
+  rgb(121, 199, 24) 50%,
+  rgb(1, 201, 45) 56.25%,
+  rgb(1, 190, 105) 62.5%,
+  rgb(1, 179, 170) 68.75%,
+  rgb(11, 161, 223) 75%,
+  rgb(63, 119, 230) 81.25%,
+  rgb(114, 76, 236) 87.5%,
+  rgb(138, 57, 239) 93.75%,
+  rgb(138, 57, 239) 100%
+);
+$maple: linear-gradient(rgb(85, 0, 41) 0%, rgb(170, 50, 50) 50%, rgb(217, 169, 0) 100%);
+$default: linear-gradient(rgb(170, 0, 255) 0%, rgb(0, 128, 255) 100%);

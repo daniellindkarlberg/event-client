@@ -1,0 +1,23 @@
+<div class="message">
+  <div class="content" [ngClass]="{ self: currentUser }">
+    <img *ngIf="!currentUser" class="avatar" [src]="message.sender.picture" alt="Avatar" />
+    <img
+      *ngIf="message.photo"
+      [src]="message.thumbnailUrl"
+      alt=""
+      (click)="fullSize.emit(message.imgUrl)"
+    />
+    <div
+      *ngIf="!message.photo"
+      class="text"
+      [class]="theme"
+      [ngClass]="{ self: currentUser, dark: darkMode }"
+    >
+      <span [innerHTML]="message.text | link"></span>
+    </div>
+  </div>
+  <div *ngIf="!currentUser" class="nickname">
+    {{ message.sender.nickname }}
+  </div>
+  <div class="time" [ngClass]="{ self: currentUser }">{{ time }}</div>
+</div>

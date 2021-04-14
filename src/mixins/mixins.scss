@@ -1,0 +1,151 @@
+@mixin message-theme {
+  &.rose {
+    background-color: $rose;
+  }
+  &.classic {
+    background-color: $classic;
+  }
+  &.tulip {
+    background-color: $tulip;
+  }
+  &.kiwi {
+    background-color: $kiwi;
+  }
+  &.peach {
+    background-color: $peach;
+  }
+  &.monochrome {
+    background-color: $monochrome;
+  }
+  &.ocean {
+    background-color: $ocean;
+  }
+  &.honey {
+    background-color: $honey;
+  }
+  &.lavender {
+    background-color: $lavender;
+  }
+  &.apple {
+    background-color: $apple;
+  }
+  &.red {
+    background-color: $red;
+  }
+  &.pink {
+    background-color: $pink;
+  }
+  &.purple {
+    background-color: $purple;
+  }
+  &.deep-purple {
+    background-color: $deep-purple;
+  }
+  &.indigo {
+    background-color: $indigo;
+  }
+  &.blue {
+    background-color: $blue;
+  }
+  &.light-blue {
+    background-color: $light-blue;
+  }
+  &.cyan {
+    background-color: $cyan;
+  }
+  &.teal {
+    background-color: $teal;
+  }
+  &.green {
+    background-color: $green;
+  }
+  &.light-green {
+    background-color: $light-green;
+  }
+  &.lime {
+    background-color: $lime;
+  }
+  &.amber {
+    background-color: $amber;
+  }
+  &.deep-orange {
+    background-color: $deep-orange;
+  }
+  &.brown {
+    background-color: $brown;
+  }
+  &.grey {
+    background-color: $grey;
+  }
+  &.blue-grey {
+    background-color: $blue-grey;
+  }
+  &.black {
+    background-color: $black;
+  }
+  &.tie-dye {
+    background-image: $tie-dye;
+  }
+  &.tropical {
+    background-image: $tropical;
+  }
+  &.shadow {
+    background-image: $shadow;
+  }
+  &.unicorn {
+    background-image: $unicorn;
+  }
+  &.lollipop {
+    background-image: $lollipop;
+  }
+  &.chill {
+    background-image: $chill;
+  }
+  &.citrus {
+    background-image: $citrus;
+  }
+  &.rocket {
+    background-image: $rocket;
+  }
+  &.candy {
+    background-image: $candy;
+  }
+  &.berry {
+    background-image: $berry;
+  }
+  &.sushi {
+    background-image: $sushi;
+  }
+  &.tiny-tan {
+    background-image: $tiny-tan;
+  }
+  &.pride {
+    background-image: $pride;
+  }
+  &.maple {
+    background-image: $maple;
+  }
+  &.default {
+    background-image: $default;
+  }
+}
+
+@mixin material-dialog {
+  .mat-dialog-actions {
+    position: relative;
+    padding: 45px 24px 0 24px;
+    min-height: 30px;
+  }
+
+  .mat-dialog-container {
+    padding-top: 0;
+    padding-right: 0;
+    padding-left: 0;
+    border-radius: 10px;
+  }
+
+  .mat-dialog-content {
+    margin: 0;
+    padding: 0;
+  }
+}

@@ -1,0 +1,15 @@
+@import 'variables';
+
+:host {
+  width: 100%;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-icon {
+  cursor: pointer;
+  color: $light-orange;
+  transform: scale(1.5);
+}

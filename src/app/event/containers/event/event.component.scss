@@ -1,0 +1,179 @@
+@import 'variables';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: 85px auto;
+  max-width: 75%;
+  font-family: $poppins;
+  font-size: 16px;
+}
+
+.photo {
+  height: 350px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border-radius: 10px;
+
+  img {
+    position: relative;
+    height: 125%;
+    max-width: 650px;
+  }
+}
+
+.header-event {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border-bottom: 1px solid $light-grey;
+  padding: 50px 0 10px 20px;
+
+  .name {
+    font-weight: 700;
+    font-size: 28px;
+    margin: 15px 0 15px 0;
+  }
+
+  .calendar {
+    position: absolute;
+    top: -50px;
+    width: 80px;
+    height: 80px;
+    box-shadow: $box-shadow-1;
+    border-radius: 5px;
+    background-color: $white;
+
+    .top {
+      background-color: $calendar-red;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      height: 20px;
+    }
+
+    .day {
+      font-size: 40px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+    }
+  }
+
+  .date {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: $calendar-red;
+  }
+}
+
+.menu {
+  display: flex;
+  padding: 10px;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid $light-grey;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+  z-index: 50;
+
+  .chat {
+    cursor: pointer;
+    transform: scale(2);
+    padding: 10px;
+  }
+
+  .actions {
+    width: 180px;
+    display: flex;
+    justify-content: space-between;
+
+    .action {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      background-color: $light-grey;
+      border-radius: 6px;
+      padding: 10px;
+      font-weight: 500;
+
+      &:hover {
+        background-color: #bdbdbd;
+      }
+    }
+
+    mat-icon {
+      margin-right: 5px;
+    }
+  }
+}
+
+.details {
+  background-color: $medium-grey;
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  padding: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  margin-bottom: 50px;
+
+  .row {
+    display: flex;
+    align-items: center;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 300px;
+    height: 300px;
+    background-color: $white;
+    border-radius: 5px;
+    box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    margin: 10px;
+
+    .header-details {
+      font-weight: 600;
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+
+    .avatar {
+      vertical-align: middle;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+    }
+
+    mat-icon {
+      color: $light-orange;
+      margin-right: 5px;
+    }
+  }
+
+  .date {
+    margin-bottom: 10px;
+  }
+
+  .guests {
+    margin: 15px 30px;
+  }
+
+  .description {
+    margin-top: 10px;
+  }
+
+  .location {
+    margin-top: 10px;
+  }
+
+  app-map {
+    margin-bottom: 10px;
+  }
+}

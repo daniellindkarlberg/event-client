@@ -1,0 +1,194 @@
+<div class="container">
+  <mat-vertical-stepper [linear]="true" #stepper>
+    <mat-step [stepControl]="detailsForm">
+      <form class="form" [formGroup]="detailsForm">
+        <ng-template matStepLabel>Details</ng-template>
+        <mat-form-field hintLabel="Max 50 characters" appearance="outline">
+          <mat-label>Event name</mat-label>
+          <input matInput #input maxlength="50" placeholder="Event name" formControlName="name" />
+          <mat-hint align="end">{{ input.value?.length || 0 }}/50</mat-hint>
+        </mat-form-field>
+
+        <div class="date">
+          <mat-form-field appearance="outline" [ngClass]="{ error: invalidDate }">
+            <mat-label>Start date</mat-label>
+            <input
+              matInput
+              formControlName="startDate"
+              [matDatepicker]="picker"
+              [min]="minDate"
+              (dateChange)="dateChange($event.target.value, Time.START)"
+            />
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <app-time-select
+            formControlName="startTime"
+            [options]="hours[Time.START]"
+            [error]="invalidTime"
+            label="Start time"
+          ></app-time-select>
+        </div>
+
+        <div *ngIf="showEndDate" class="date">
+          <mat-form-field appearance="outline" [ngClass]="{ error: invalidDate }">
+            <mat-label>End date</mat-label>
+            <input
+              matInput
+              formControlName="endDate"
+              [matDatepicker]="picker"
+              [min]="minDate"
+              (dateChange)="dateChange($event.target.value, Time.END)"
+            />
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <app-time-select
+            formControlName="endTime"
+            [options]="hours[Time.END]"
+            [error]="invalidTime"
+            label="End time"
+          ></app-time-select>
+        </div>
+
+        <div class="error-message">
+          <div class="text" *ngIf="invalidDate">End date must be after Start date</div>
+          <div class="text" *ngIf="invalidTime">End time must be after Start time</div>
+        </div>
+        <div class="add-end-date" (click)="toggleEndDate()">
+          <mat-icon>{{ showEndDate ? 'remove' : 'add' }}</mat-icon>
+          End Date and Time
+        </div>
+        <div>
+          <button mat-stroked-button color="primary" matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="locationForm">
+      <form class="form" [formGroup]="locationForm">
+        <ng-template matStepLabel>Location</ng-template>
+        <app-places-input
+          [value]="address"
+          [showSuffix]="true"
+          (locationChange)="locationChange($event)"
+          (openMap)="openMapDialog()"
+        ></app-places-input>
+        <div>
+          <button mat-stroked-button color="primary" matStepperPrevious class="back">Back</button>
+          <button mat-stroked-button color="primary" matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="descriptionForm">
+      <form class="form" [formGroup]="descriptionForm">
+        <ng-template matStepLabel>Description</ng-template>
+        <mat-form-field appearance="outline">
+          <mat-label>Description</mat-label>
+          <textarea
+            matInput
+            placeholder="Event description"
+            formControlName="description"
+            spellcheck="false"
+            #autosize="cdkTextareaAutosize"
+            cdkTextareaAutosize
+            cdkAutosizeMinRows="1"
+            cdkAutosizeMaxRows="20"
+          ></textarea>
+        </mat-form-field>
+        <div>
+          <button mat-stroked-button color="primary" matStepperPrevious class="back">Back</button>
+          <button mat-stroked-button color="primary" matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="photoForm">
+      <form class="form" [formGroup]="photoForm">
+        <ng-template matStepLabel>Cover Photo</ng-template>
+        <app-image-select
+          [src]="imageSrc"
+          (positionChange)="photoPositionTop = $event"
+          (fileChange)="fileChange($event)"
+          (fileReset)="fileReset()"
+        ></app-image-select>
+        <div class="buttons">
+          <button mat-stroked-button color="primary" matStepperPrevious class="back">Back</button>
+          <button mat-stroked-button color="primary" matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="themeForm">
+      <form class="form" [formGroup]="themeForm">
+        <ng-template matStepLabel>Theme</ng-template>
+        <mat-slide-toggle class="mode" color="primary" formControlName="darkMode">
+          Chat Dark Mode
+        </mat-slide-toggle>
+        <app-theme-select
+          [theme]="themeForm"
+          (selectTheme)="selectTheme($event)"
+        ></app-theme-select>
+        <div class="buttons">
+          <button mat-stroked-button color="primary" matStepperPrevious class="back">Back</button>
+          <button mat-stroked-button color="primary" matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="inviteForm">
+      <form class="form" [formGroup]="inviteForm">
+        <ng-template matStepLabel>Invite</ng-template>
+
+        <div class="emails" formArrayName="emails">
+          <mat-icon
+            class="add"
+            [style.visibility]="emails.controls.length < 5 ? 'visible' : 'hidden'"
+            (click)="addEmailField()"
+          >
+            add_box
+          </mat-icon>
+          <div *ngFor="let email of emails.controls; index as i">
+            <mat-form-field appearance="outline">
+              <mat-label>Enter email</mat-label>
+              <input matInput [formControlName]="i" />
+            </mat-form-field>
+            <mat-icon class="delete" (click)="removeEmailField(i)">delete_outline</mat-icon>
+          </div>
+        </div>
+        <div class="buttons">
+          <button mat-stroked-button color="primary" matStepperPrevious class="back">Back</button>
+          <button mat-stroked-button color="primary" matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel>Complete</ng-template>
+      <button class="save" mat-raised-button color="primary" (click)="save()">Save</button>
+      <div>
+        <button mat-stroked-button color="primary" matStepperPrevious class="back">Back</button>
+        <button mat-stroked-button color="primary" (click)="stepper.reset()">Reset</button>
+      </div>
+    </mat-step>
+  </mat-vertical-stepper>
+
+  <app-preview
+    [host]="host"
+    [name]="name"
+    [startDate]="startDate"
+    [startTime]="startTime"
+    [endDate]="endDate"
+    [endTime]="endTime"
+    [location]="location"
+    [description]="description"
+    [imageSrc]="imageSrc"
+    [photoPositionTop]="photoPositionTop"
+    [color]="theme.primaryColor"
+    [locationSelected]="locationSelected"
+  ></app-preview>
+</div>
+
+<app-loader *ngIf="loading$ | async"></app-loader>
