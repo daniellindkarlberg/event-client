@@ -4,7 +4,7 @@ import { MessengerService } from '@core/services/messenger.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { getUser } from '@root/reducers';
-import { catchError, concatMap, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { catchError, concatMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 
 @Injectable()
 export class MessengerEffects {
