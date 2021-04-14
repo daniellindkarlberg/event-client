@@ -8,5 +8,7 @@ export const environment = {
     clientId: 'Ogpy8th3sG3i1h5X65wn2Dm6QDb0ApYE',
     audience: 'https://dlk-event.site',
   },
-  google: {},
+  google: {
+    apiKey: 'AIzaSyCsffoYyr9LXcdk9LSu3TDzHqEC3ael1F8',
+  },
 };

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "event-client": {
+    "eventfully": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -25,7 +25,7 @@
               "ngx-google-places-autocomplete",
               "lottie-web"
             ],
-            "outputPath": "dist/event-client",
+            "outputPath": "dist/eventfully",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -60,13 +60,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
                 }
               ]
             }
@@ -75,18 +75,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "event-client:build"
+            "browserTarget": "eventfully:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "event-client:build:production"
+              "browserTarget": "eventfully:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "event-client:build"
+            "browserTarget": "eventfully:build"
           }
         },
         "test": {
@@ -104,11 +104,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "e2e/tsconfig.json"
-            ],
+            "tsConfig": ["tsconfig.app.json", "tsconfig.spec.json", "e2e/tsconfig.json"],
             "exclude": ["**/node_modules/**"]
           }
         },
@@ -116,18 +112,18 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "event-client:serve"
+            "devServerTarget": "eventfully:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "event-client:serve:production"
+              "devServerTarget": "eventfully:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "event-client",
+  "defaultProject": "eventfully",
   "cli": {
     "defaultCollection": "@ngrx/schematics"
   }
