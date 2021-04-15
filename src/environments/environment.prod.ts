@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  siteUrl: 'https://dlk-event.site',
+  siteUrl: 'https://eventfully.se',
   socketBaseUrl: 'http://localhost:8080/',
   eventApiUrl: 'http://eventapi-env.eba-ux9f235h.eu-north-1.elasticbeanstalk.com/api',
   auth0: {
