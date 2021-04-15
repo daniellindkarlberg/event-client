@@ -9,7 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { EventActions } from '@event/actions';
 import { MapDialogComponent } from '@event/components';
-import { Event, EventLocation, Host, Image, Theme } from '@event/models';
+import { Event, EventLocation, Host, Image, Privacy, Theme } from '@event/models';
 import { select, Store } from '@ngrx/store';
 import { getLoading, getUser, selectCurrentEvent, State } from '@root/reducers';
 import {
@@ -60,6 +60,7 @@ export const CUSTOM_FORMATS = {
 })
 export class EditComponent implements OnInit, OnDestroy {
   Time = Time;
+  Privacy = Privacy;
 
   event$ = this.store.pipe(select(selectCurrentEvent));
   loading$ = this.store.pipe(select(getLoading));
@@ -87,6 +88,7 @@ export class EditComponent implements OnInit, OnDestroy {
       startTime: new FormControl(getRoundedHour(), Validators.required),
       endDate: new FormControl(null),
       endTime: new FormControl(null),
+      privacy: new FormControl(Privacy.PUBLIC),
     },
     Validators.compose([dateValidation, timeValidation]),
   );
@@ -236,6 +238,7 @@ export class EditComponent implements OnInit, OnDestroy {
   save() {
     const { name, startDate, startTime, endDate, endTime, location, description, theme } = this;
     const { file } = this.photoForm.value;
+    const { privacy } = this.detailsForm.value;
     const event = {
       name,
       startDate: getTimestamp(startDate, startTime),
@@ -246,6 +249,7 @@ export class EditComponent implements OnInit, OnDestroy {
         positionTop: this.photoPositionTop,
       },
       theme,
+      privacy,
     } as Event;
 
     if (this.eventId) {
@@ -288,7 +292,7 @@ export class EditComponent implements OnInit, OnDestroy {
   }
 
   setInitialValues(event: Event) {
-    const { host, name, startDate, endDate, description, photo, location, theme } = event;
+    const { host, name, startDate, endDate, description, photo, location, theme, privacy } = event;
 
     if (endDate) {
       this.showEndDate = true;
@@ -303,6 +307,7 @@ export class EditComponent implements OnInit, OnDestroy {
         endDate: moment.unix(endDate),
         endTime: moment.unix(endDate).format('LT'),
       }),
+      privacy,
     });
     this.descriptionForm.patchValue({ description });
     this.imageSrc = photo.imgUrl;

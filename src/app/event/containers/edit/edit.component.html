@@ -60,6 +60,14 @@
           <mat-icon>{{ showEndDate ? 'remove' : 'add' }}</mat-icon>
           End Date and Time
         </div>
+        <mat-form-field appearance="outline">
+          <mat-label>Privacy</mat-label>
+          <mat-select formControlName="privacy">
+            <mat-option [value]="Privacy.PUBLIC">Public</mat-option>
+            <mat-option [value]="Privacy.PRIVATE">Private</mat-option>
+          </mat-select>
+        </mat-form-field>
+
         <div>
           <button mat-stroked-button color="primary" matStepperNext>Next</button>
         </div>

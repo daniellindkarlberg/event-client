@@ -1,6 +1,7 @@
 export interface Event {
   id: string;
   host: Host;
+  privacy: Privacy;
   name: string;
   description: string;
   location: EventLocation;
@@ -37,4 +38,9 @@ export interface Theme {
 export enum Mode {
   DARK = 'dark',
   LIGHT = 'light',
+}
+
+export enum Privacy {
+  PRIVATE = 'private',
+  PUBLIC = 'public',
 }
