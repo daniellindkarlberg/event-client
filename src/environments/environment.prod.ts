@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   siteUrl: 'https://eventfully.se',
-  socketBaseUrl: 'https://eventfully.se',
+  socketBaseUrl: 'https://api.eventfully.se',
   eventApiUrl: 'https://api.eventfully.se/v1',
   auth0: {
     domain: 'event-dlk.eu.auth0.com',
