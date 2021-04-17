@@ -30,11 +30,13 @@ export class PlacesInputComponent {
     strictBounds: true,
   } as Options;
 
-  change({ formatted_address: address, geometry: { location } }: Address) {
-    this.locationChange.emit({
-      latitude: location.lat(),
-      longitude: location.lng(),
-      address,
-    });
+  change({ formatted_address: address, geometry }: Address) {
+    if (geometry) {
+      this.locationChange.emit({
+        latitude: geometry.location.lat(),
+        longitude: geometry.location.lng(),
+        address,
+      });
+    }
   }
 }

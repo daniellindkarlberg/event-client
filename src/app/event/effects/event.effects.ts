@@ -4,6 +4,7 @@ import { MessengerActions } from '@core/actions';
 import { EventActions } from '@event/actions';
 import { EventService } from '@event/services/event.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { UserActions } from '@user/actions';
 import { catchError, concatMap, map, switchMap, tap } from 'rxjs/operators';
 
 @Injectable()
@@ -23,11 +24,11 @@ export class EventEffects {
   getById$ = createEffect(() =>
     this.actions$.pipe(
       ofType(EventActions.getById),
-      concatMap(({ id }) =>
+      concatMap(({ id, shouldInitMessenger }) =>
         this.service.getById(id).pipe(
           switchMap(({ event, messages }) => [
             EventActions.getByIdSuccess({ event, messages }),
-            MessengerActions.init({ messages }),
+            ...(shouldInitMessenger ? [MessengerActions.init({ messages })] : []),
           ]),
           catchError((error) => [EventActions.getByIdFailure({ error })]),
         ),
@@ -56,7 +57,7 @@ export class EventEffects {
       concatMap(({ event, file, invites }) =>
         this.service.update(event, invites).pipe(
           switchMap((payload) => {
-            if (!!file.type) {
+            if (file.type) {
               return [EventActions.upload({ event: payload, file })];
             } else {
               return [EventActions.updateSuccess({ event: payload })];
@@ -79,6 +80,30 @@ export class EventEffects {
             }),
           ),
           catchError((error) => [EventActions.uploadFailure({ error })]),
+        ),
+      ),
+    ),
+  );
+
+  addGuest$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(EventActions.addGuest),
+      concatMap(({ id }) =>
+        this.service.addGuest(id).pipe(
+          switchMap(() => [EventActions.addGuestSuccess(), UserActions.getEvents()]),
+          catchError((error) => [EventActions.addGuestFailure({ error })]),
+        ),
+      ),
+    ),
+  );
+
+  removeGuest$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(EventActions.removeGuest),
+      concatMap(({ id }) =>
+        this.service.removeGuest(id).pipe(
+          switchMap(() => [EventActions.removeGuestSuccess(), UserActions.getEvents()]),
+          catchError((error) => [EventActions.removeGuestFailure({ error })]),
         ),
       ),
     ),

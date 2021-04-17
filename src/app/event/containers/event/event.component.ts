@@ -34,7 +34,7 @@ export class EventComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
-    this.store.dispatch(EventActions.getById({ id: this.id }));
+    this.store.dispatch(EventActions.getById({ id: this.id, shouldInitMessenger: true }));
     this.store.dispatch(UserActions.getEvents());
     this.store.dispatch(MessengerActions.join({ eventId: this.id }));
 
@@ -57,6 +57,14 @@ export class EventComponent implements OnInit, OnDestroy {
 
   get background() {
     return `linear-gradient(180deg, ${this.event.theme.primaryColor} 0%, rgba(255,255,255,1) 100%)`;
+  }
+
+  addGuest() {
+    this.store.dispatch(EventActions.addGuest({ id: this.id }));
+  }
+
+  removeGuest() {
+    this.store.dispatch(EventActions.removeGuest({ id: this.id }));
   }
 
   edit() {

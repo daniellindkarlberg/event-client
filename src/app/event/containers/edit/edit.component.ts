@@ -73,8 +73,6 @@ export class EditComponent implements OnInit, OnDestroy {
   minDate = new Date();
   locationSelected = false;
   showEndDate = false;
-  showInvites = false;
-  showMap = false;
 
   hours = {
     [Time.START]: [] as Hour[],
@@ -138,7 +136,7 @@ export class EditComponent implements OnInit, OnDestroy {
     let options = [];
 
     if (this.eventId) {
-      this.store.dispatch(EventActions.getById({ id: this.eventId }));
+      this.store.dispatch(EventActions.getById({ id: this.eventId, shouldInitMessenger: false }));
       options = getSelectOptions();
     } else {
       options = getFilteredSelectOptions();
@@ -223,16 +221,16 @@ export class EditComponent implements OnInit, OnDestroy {
     this.locationSelected = true;
   }
 
-  addEmailField() {
+  themeChange(theme: Partial<Theme>) {
+    this.themeForm.patchValue(theme);
+  }
+
+  addEmail() {
     this.emails.push(new FormControl('', [Validators.email, Validators.required]));
   }
 
-  removeEmailField(index: number) {
+  removeEmail(index: number) {
     this.emails.removeAt(index);
-  }
-
-  selectTheme(theme: Partial<Theme>) {
-    this.themeForm.patchValue(theme);
   }
 
   save() {

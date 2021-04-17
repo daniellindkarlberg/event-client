@@ -137,7 +137,7 @@
         </mat-slide-toggle>
         <app-theme-select
           [theme]="themeForm"
-          (selectTheme)="selectTheme($event)"
+          (selectTheme)="themeChange($event)"
         ></app-theme-select>
         <div class="buttons">
           <button mat-stroked-button color="primary" matStepperPrevious class="back">Back</button>
@@ -154,7 +154,7 @@
           <mat-icon
             class="add"
             [style.visibility]="emails.controls.length < 5 ? 'visible' : 'hidden'"
-            (click)="addEmailField()"
+            (click)="addEmail()"
           >
             add_box
           </mat-icon>
@@ -163,7 +163,7 @@
               <mat-label>Enter email</mat-label>
               <input matInput [formControlName]="i" />
             </mat-form-field>
-            <mat-icon class="delete" (click)="removeEmailField(i)">delete_outline</mat-icon>
+            <mat-icon class="delete" (click)="removeEmail(i)">delete_outline</mat-icon>
           </div>
         </div>
         <div class="buttons">

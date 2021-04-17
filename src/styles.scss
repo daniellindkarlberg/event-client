@@ -26,6 +26,7 @@ body {
 
 .app-messenger-dark {
   @include material-dialog;
+
   .mat-dialog-container {
     background-color: #252526;
   }

@@ -13,9 +13,6 @@
     "callable-types": true,
     "class-name": true,
     "comment-format": [true, "check-space"],
-    "deprecation": {
-      "severity": "warn"
-    },
     "import-blacklist": [true, "rxjs/Rx"],
     "import-spacing": true,
     "indent": {
@@ -54,6 +51,7 @@
     "quotemark": [true, "single"],
     "no-trailing-whitespace": true,
     "no-unused-expression": true,
+    "no-unused-variable": true,
     "no-use-before-declare": true,
     "no-var-keyword": true,
     "object-literal-sort-keys": false,

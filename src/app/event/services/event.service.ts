@@ -37,4 +37,12 @@ export class EventService {
 
     return this.http.post<{ imgUrl: string }>(`${this.apiUrl}/upload/${id}`, formData);
   }
+
+  addGuest(id: string) {
+    return this.http.post<void>(`${this.apiUrl}/guest/${id}`, {});
+  }
+
+  removeGuest(id: string) {
+    return this.http.delete<void>(`${this.apiUrl}/guest/${id}`);
+  }
 }

@@ -23,14 +23,29 @@
     </mat-icon>
 
     <div class="actions">
-      <div *ngIf="currentUserAttending" class="action">
-        <mat-icon>send</mat-icon>
-        <div>Invite</div>
-      </div>
-      <div *ngIf="event.host.id === currentUserId" class="action" (click)="edit()">
-        <mat-icon>create</mat-icon>
-        <div>Edit</div>
-      </div>
+      <button
+        *ngIf="event.host.id !== currentUserId"
+        [ngClass]="{ going: currentUserAttending }"
+        mat-button
+        [matMenuTriggerFor]="menu"
+      >
+        <mat-icon>check_circle_outline</mat-icon>
+        <span>Going</span>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item [disabled]="currentUserAttending" (click)="addGuest()">Yes</button>
+        <button mat-menu-item [disabled]="!currentUserAttending" (click)="removeGuest()">No</button>
+      </mat-menu>
+      <ng-container *ngIf="event.host.id === currentUserId">
+        <button mat-button>
+          <mat-icon>mail_outline</mat-icon>
+          <span>Invite</span>
+        </button>
+        <button mat-button (click)="edit()">
+          <mat-icon>create</mat-icon>
+          <span>Edit</span>
+        </button>
+      </ng-container>
     </div>
   </div>
   <div class="details">

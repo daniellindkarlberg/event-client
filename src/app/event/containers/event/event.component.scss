@@ -87,21 +87,15 @@
   }
 
   .actions {
-    width: 180px;
     display: flex;
-    justify-content: space-between;
 
-    .action {
-      cursor: pointer;
-      display: flex;
-      align-items: center;
+    button {
       background-color: $light-grey;
-      border-radius: 6px;
-      padding: 10px;
       font-weight: 500;
+      margin-left: 10px;
 
-      &:hover {
-        background-color: #bdbdbd;
+      &.going {
+        background-color: #00e676;
       }
     }
 

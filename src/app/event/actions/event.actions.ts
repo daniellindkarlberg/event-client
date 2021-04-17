@@ -10,7 +10,10 @@ export const getFailure = createAction(
   props<{ error: HttpErrorResponse }>(),
 );
 
-export const getById = createAction('[Event] Get By Id', props<{ id: string }>());
+export const getById = createAction(
+  '[Event] Get By Id',
+  props<{ id: string; shouldInitMessenger: boolean }>(),
+);
 export const getByIdSuccess = createAction(
   '[Event] Get By Id Success',
   props<{ event: Event; messages: Message[] }>(),
@@ -44,6 +47,20 @@ export const upload = createAction('[Event] Upload', props<{ event: Event; file:
 export const uploadSuccess = createAction('[Event] Upload Success', props<{ event: Event }>());
 export const uploadFailure = createAction(
   '[Event] Upload Failure',
+  props<{ error: HttpErrorResponse }>(),
+);
+
+export const addGuest = createAction('[Event] Add Guest', props<{ id: string }>());
+export const addGuestSuccess = createAction('[Event] Add Guest Success');
+export const addGuestFailure = createAction(
+  '[Event] Add Guest Failure',
+  props<{ error: HttpErrorResponse }>(),
+);
+
+export const removeGuest = createAction('[Event] Remove Guest', props<{ id: string }>());
+export const removeGuestSuccess = createAction('[Event] Reove Guest Success');
+export const removeGuestFailure = createAction(
+  '[Event] Remnove Guest Failure',
   props<{ error: HttpErrorResponse }>(),
 );
 
