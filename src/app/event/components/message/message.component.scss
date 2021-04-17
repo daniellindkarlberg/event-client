@@ -37,12 +37,10 @@
     background-color: $classic;
     color: $white;
     background-attachment: fixed;
-  }
-}
 
-@supports (-webkit-overflow-scrolling: touch) {
-  .text.self {
-    background-attachment: scroll;
+    @supports (-webkit-overflow-scrolling: touch) {
+      background-color: blue;
+    }
   }
 }
 
