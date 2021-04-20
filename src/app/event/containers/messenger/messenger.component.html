@@ -46,6 +46,8 @@
         placeholder="Aa"
         [formControl]="messageForm"
         (keypress)="keypress($event)"
+        (focus)="focus($event)"
+        (blur)="blur($event)"
         spellcheck="false"
       ></textarea>
     </div>
