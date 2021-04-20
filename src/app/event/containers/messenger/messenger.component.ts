@@ -172,12 +172,4 @@ export class MessengerComponent implements AfterViewInit, OnInit, OnDestroy {
   close() {
     this.router.navigate(['..'], { relativeTo: this.route });
   }
-
-  focus(event: any) {
-    console.log(event);
-  }
-
-  blur(event: any) {
-    console.log(event);
-  }
 }

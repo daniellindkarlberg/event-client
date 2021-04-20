@@ -1,77 +1,93 @@
-<div class="messenger" [ngClass]="{ dark: darkMode }" [style.color]="theme.primaryColor">
-  <!--   <div class="actions top" [ngClass]="{ dark: darkMode }">
+<!-- <div class="messenger" [ngClass]="{ dark: darkMode }" [style.color]="theme.primaryColor"> -->
+<!--   <div class="actions top" [ngClass]="{ dark: darkMode }">
     <mat-icon (click)="close()">cancel</mat-icon>
   </div> -->
 
-  <div class="content" #content>
-    <div #messageContainer class="messages">
-      <app-message
-        *ngFor="let message of messages"
-        [message]="message"
-        [userId]="userId"
-        [theme]="theme.name"
-        [darkMode]="darkMode"
-        (fullSize)="showFullSizeImage = true; fullSizeImageUrl = $event"
-      ></app-message>
-      <mat-icon
-        *ngIf="!inView && !(notification$ | async)"
-        class="scroll-action"
-        [@arrow]
-        (mousedown)="scrollIntoView()"
-      >
-        arrow_drop_down_circle
-      </mat-icon>
-      <mat-icon
-        *ngIf="notification$ | async"
-        class="scroll-action notification"
-        (click)="scrollIntoView(); notification$.next(false)"
-      >
-        sms
-      </mat-icon>
-      <div *ngIf="loading$ | async" class="image-loader">
-        <mat-spinner [diameter]="30"></mat-spinner>
-        <img [src]="imgSrc" alt="" />
-      </div>
-    </div>
-  </div>
-
-  <div class="actions bottom" [ngClass]="{ dark: darkMode }">
-    <mat-icon class="upload" (click)="fileUpload.click()">insert_photo</mat-icon>
-    <div class="text-area-wrapper">
-      <textarea
-        [ngClass]="{ dark: darkMode }"
-        autosize
-        [minRows]="1"
-        [maxRows]="10"
-        placeholder="Aa"
-        [formControl]="messageForm"
-        (keypress)="keypress($event)"
-        (focus)="focus($event)"
-        (blur)="blur($event)"
-        spellcheck="false"
-      ></textarea>
-    </div>
+<div class="content" #content>
+  <div
+    #messageContainer
+    class="messages"
+    [ngClass]="{ dark: darkMode }"
+    [style.color]="theme.primaryColor"
+  >
+    <app-message
+      *ngFor="let message of messages"
+      [message]="message"
+      [userId]="userId"
+      [theme]="theme.name"
+      [darkMode]="darkMode"
+      (fullSize)="showFullSizeImage = true; fullSizeImageUrl = $event"
+    ></app-message>
     <mat-icon
-      class="send"
-      [style.color]="theme.primaryColor"
-      *ngIf="messageFormValid"
-      (click)="send()"
+      *ngIf="!inView && !(notification$ | async)"
+      class="scroll-action"
+      [@arrow]
+      (mousedown)="scrollIntoView()"
     >
-      send
+      arrow_drop_down_circle
     </mat-icon>
+    <mat-icon
+      *ngIf="notification$ | async"
+      class="scroll-action notification"
+      (click)="scrollIntoView(); notification$.next(false)"
+    >
+      sms
+    </mat-icon>
+    <div *ngIf="loading$ | async" class="image-loader">
+      <mat-spinner [diameter]="30"></mat-spinner>
+      <img [src]="imgSrc" alt="" />
+    </div>
   </div>
-
-  <div class *ngIf="showFullSizeImage" class="image-full">
-    <img
-      [src]="fullSizeImageUrl"
-      alt=""
-      [delayClickOutsideInit]="true"
-      (clickOutside)="showFullSizeImage = false"
-    />
-  </div>
-
-  <input #fileUpload type="file" accept="image/*" (change)="upload($event)" />
 </div>
+
+<div class="test">
+  <textarea
+    [ngClass]="{ dark: darkMode }"
+    autosize
+    [minRows]="1"
+    [maxRows]="10"
+    placeholder="Aa"
+    [formControl]="messageForm"
+    (keypress)="keypress($event)"
+    spellcheck="false"
+  ></textarea>
+</div>
+
+<!-- <div class="actions bottom" [ngClass]="{ dark: darkMode }">
+  <mat-icon class="upload" (click)="fileUpload.click()">insert_photo</mat-icon>
+  <div class="text-area-wrapper">
+    <textarea
+      [ngClass]="{ dark: darkMode }"
+      autosize
+      [minRows]="1"
+      [maxRows]="10"
+      placeholder="Aa"
+      [formControl]="messageForm"
+      (keypress)="keypress($event)"
+      spellcheck="false"
+    ></textarea>
+  </div>
+  <mat-icon
+    class="send"
+    [style.color]="theme.primaryColor"
+    *ngIf="messageFormValid"
+    (click)="send()"
+  >
+    send
+  </mat-icon>
+</div> -->
+
+<div class *ngIf="showFullSizeImage" class="image-full">
+  <img
+    [src]="fullSizeImageUrl"
+    alt=""
+    [delayClickOutsideInit]="true"
+    (clickOutside)="showFullSizeImage = false"
+  />
+</div>
+
+<input #fileUpload type="file" accept="image/*" (change)="upload($event)" />
+<!-- </div> -->
 
 <!-- 
 <emoji-mart
