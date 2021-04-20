@@ -48,6 +48,7 @@ export class MessengerComponent implements AfterViewInit, OnInit, OnDestroy {
   currentUser = false;
   showEmoticons = false;
   showFullSizeImage = false;
+  showHeader = true;
   inView = true;
   imgSrc = '';
   fullSizeImageUrl = '';
