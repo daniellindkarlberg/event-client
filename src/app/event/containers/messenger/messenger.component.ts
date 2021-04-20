@@ -17,6 +17,7 @@ import {
 } from '@root/reducers';
 import { BehaviorSubject, fromEvent, Subject } from 'rxjs';
 import { filter, takeUntil, tap } from 'rxjs/operators';
+import scrollIntoView from 'scroll-into-view-if-needed';
 
 @Component({
   selector: 'app-messenger',
@@ -158,7 +159,7 @@ export class MessengerComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   scrollIntoView() {
-    this.messageContainer?.nativeElement?.scrollIntoView({
+    scrollIntoView(this.messageContainer?.nativeElement, {
       behavior: 'smooth',
       block: 'end',
     });

@@ -17,7 +17,7 @@
         *ngIf="!inView && !(notification$ | async)"
         class="scroll-action"
         [@arrow]
-        (click)="scrollIntoView()"
+        (mousedown)="scrollIntoView()"
       >
         arrow_drop_down_circle
       </mat-icon>
