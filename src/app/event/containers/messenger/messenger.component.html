@@ -17,7 +17,7 @@
         *ngIf="!inView && !(notification$ | async)"
         class="scroll-action"
         [@arrow]
-        (mousedown)="scrollIntoView()"
+        (click)="scrollIntoView()"
       >
         arrow_drop_down_circle
       </mat-icon>
@@ -30,13 +30,12 @@
       </mat-icon>
       <div *ngIf="loading$ | async" class="image-loader">
         <mat-spinner [diameter]="30"></mat-spinner>
-        <img [src]="imgSrc" alt="" />
+        <img [src]="imgSrc" alt="loading" />
       </div>
     </div>
   </div>
 
   <div class="actions bottom" [ngClass]="{ dark: darkMode }">
-    <mat-icon class="upload" (click)="fileUpload.click()">insert_photo</mat-icon>
     <div class="text-area-wrapper">
       <textarea
         [ngClass]="{ dark: darkMode }"
@@ -48,7 +47,17 @@
         (keypress)="keypress($event)"
         spellcheck="false"
       ></textarea>
+      <emoji-mart
+        *ngIf="showEmoticons"
+        title=""
+        [darkMode]="darkMode"
+        (emojiClick)="addEmoji($event)"
+        (clickOutside)="showEmoticons = false"
+        [delayClickOutsideInit]="true"
+      ></emoji-mart>
     </div>
+    <mat-icon class="upload" (click)="fileUpload.click()">insert_photo</mat-icon>
+    <mat-icon class="emoji" (click)="showEmoticons = true">emoji_emotions</mat-icon>
     <mat-icon
       class="send"
       [style.color]="theme.primaryColor"
@@ -62,22 +71,11 @@
   <div class *ngIf="showFullSizeImage" class="image-full">
     <img
       [src]="fullSizeImageUrl"
-      alt=""
+      alt="fullsize image"
       [delayClickOutsideInit]="true"
       (clickOutside)="showFullSizeImage = false"
     />
   </div>
-
-  <input #fileUpload type="file" accept="image/*" (change)="upload($event)" />
 </div>
 
-<!-- 
-<emoji-mart
-*ngIf="showEmoticons"
-title=""
-[darkMode]="darkMode"
-(emojiClick)="addEmoji($event)"
-(clickOutside)="showEmoticons = false"
-[delayClickOutsideInit]="true"
-></emoji-mart>
- -->
+<input #fileUpload type="file" accept="image/*" (change)="upload($event)" />
