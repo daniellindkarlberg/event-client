@@ -25,7 +25,7 @@ mat-icon {
 
 .content {
   max-height: 92vh;
-  overflow-y: hidden;
+  overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
 }
 
