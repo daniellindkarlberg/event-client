@@ -15,6 +15,8 @@ mat-icon {
   right: 0;
   bottom: 0;
   left: 0;
+  width: 100vw;
+  height: 100vh;
   background-color: $white;
   z-index: 999;
 }
@@ -24,7 +26,7 @@ mat-icon {
 }
 
 .content {
-  max-height: 90vh;
+  max-height: 92vh;
   overflow-y: auto;
 }
 
@@ -59,7 +61,7 @@ mat-icon {
   }
 
   &.bottom {
-    height: 80px;
+    height: 65px;
     bottom: 0;
     left: 0;
     .text-area-wrapper {
@@ -67,7 +69,7 @@ mat-icon {
       display: flex;
       flex-direction: column-reverse;
       width: 100%;
-      top: 25px;
+      top: 23px;
       left: 60px;
 
       textarea {
@@ -123,14 +125,14 @@ input[type='file'] {
 
 .upload {
   position: absolute;
-  top: 30px;
+  top: 20px;
   left: 20px;
 }
 
 .send {
   position: absolute;
-  top: 30px;
-  right: 14px;
+  top: 20px;
+  right: 15px;
 }
 
 .image-full {
