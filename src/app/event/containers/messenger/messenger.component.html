@@ -1,5 +1,5 @@
 <div class="messenger" [ngClass]="{ dark: darkMode }" [style.color]="theme.primaryColor">
-  <div *ngIf="showHeader" class="actions top" [ngClass]="{ dark: darkMode }">
+  <div class="actions top" [ngClass]="{ dark: darkMode }">
     <mat-icon (click)="close()">cancel</mat-icon>
   </div>
 
@@ -45,8 +45,6 @@
         placeholder="Aa"
         [formControl]="messageForm"
         (keypress)="keypress($event)"
-        (focus)="showHeader = false"
-        (blur)="showHeader = true"
         spellcheck="false"
       ></textarea>
       <emoji-mart

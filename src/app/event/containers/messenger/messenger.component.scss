@@ -22,7 +22,6 @@
 .content {
   height: calc(100% - 80px);
   overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
 }
 
 .messages {
@@ -80,7 +79,7 @@
         font-family: inherit;
         padding-left: 10px;
         padding-top: 10px;
-        font-size: 15px;
+        font-size: 16px;
         box-sizing: border-box;
 
         &.dark {
