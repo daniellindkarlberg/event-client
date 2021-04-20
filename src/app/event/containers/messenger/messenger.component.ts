@@ -1,22 +1,20 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  EventEmitter,
-  Inject,
-  OnDestroy,
-  Output,
-  ViewChild,
-} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MessengerActions } from '@core/actions';
 import { Message } from '@core/models';
 import { EmojiEvent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
+import { EventActions } from '@event/actions';
 import { Mode, Theme } from '@event/models';
 import { select, Store } from '@ngrx/store';
-import { getMessages, getMessagesLoading, getUser, State } from '@root/reducers';
+import {
+  getMessages,
+  getMessagesLoading,
+  getUser,
+  selectCurrentEvent,
+  State,
+} from '@root/reducers';
 import { BehaviorSubject, fromEvent, Subject } from 'rxjs';
 import { filter, takeUntil, tap } from 'rxjs/operators';
 
@@ -31,10 +29,8 @@ import { filter, takeUntil, tap } from 'rxjs/operators';
     ]),
   ],
 })
-export class MessengerComponent implements AfterViewInit, OnDestroy {
+export class MessengerComponent implements AfterViewInit, OnInit, OnDestroy {
   Mode = Mode;
-
-  @Output() send = new EventEmitter<string>();
 
   @ViewChild('content') content = {} as ElementRef;
   @ViewChild('messageContainer') messageContainer = {} as ElementRef;
@@ -43,12 +39,12 @@ export class MessengerComponent implements AfterViewInit, OnDestroy {
   notification$ = new BehaviorSubject<boolean>(false);
   destroy$: Subject<boolean> = new Subject<boolean>();
 
-  userId = '';
   eventId = '';
+  userId = '';
+  theme = {} as Theme;
   messages: Message[] = [];
   messageForm = new FormControl('', Validators.required);
   currentUser = false;
-  theme = {} as Theme;
   showEmoticons = false;
   showFullSizeImage = false;
   inView = true;
@@ -56,12 +52,20 @@ export class MessengerComponent implements AfterViewInit, OnDestroy {
   fullSizeImageUrl = '';
 
   constructor(
-    private dialogRef: MatDialogRef<MessengerComponent>,
     private readonly store: Store<State>,
-    @Inject(MAT_DIALOG_DATA) { eventId, theme },
+    private readonly route: ActivatedRoute,
+    private readonly router: Router,
   ) {
-    this.theme = theme;
-    this.eventId = eventId;
+    this.store
+      .pipe(
+        select(selectCurrentEvent),
+        filter((event) => !!event),
+        takeUntil(this.destroy$),
+      )
+      .subscribe((event) => {
+        this.eventId = event.id;
+        this.theme = event.theme;
+      });
     this.store
       .pipe(select(getUser), takeUntil(this.destroy$))
       .subscribe((user) => (this.userId = user.user_id));
@@ -77,21 +81,24 @@ export class MessengerComponent implements AfterViewInit, OnDestroy {
         this.messages = messages;
 
         if (this.currentUser || this.inView) {
-          this.scrollIntoView();
+          setTimeout(() => this.scrollToBottom(), 300);
         } else {
           this.notification$.next(true);
         }
       });
   }
 
+  ngOnInit() {
+    this.eventId = this.route.snapshot.paramMap.get('id');
+    this.store.dispatch(EventActions.getById({ id: this.eventId, shouldInitMessenger: true }));
+    this.store.dispatch(MessengerActions.join({ eventId: this.eventId }));
+  }
+
   ngAfterViewInit() {
-    setTimeout(() => {
-      this.scrollToBottom();
-    }, 500);
     fromEvent(this.content.nativeElement, 'scroll')
       .pipe(
         tap(({ target: { scrollTop, scrollHeight } }) => {
-          this.inView = scrollHeight - scrollTop < 1000;
+          this.inView = scrollHeight - scrollTop < 1500;
           if (this.inView) {
             this.notification$.next(false);
           }
@@ -115,30 +122,33 @@ export class MessengerComponent implements AfterViewInit, OnDestroy {
     return this.theme.darkMode;
   }
 
-  sendMessage() {
-    this.send.emit(this.messageForm.value);
-    this.messageForm.reset();
+  upload(event: any) {
+    const reader = new FileReader();
+    const [file] = event.target.files;
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.imgSrc = reader.result as string;
+      this.store.dispatch(MessengerActions.upload({ eventId: this.eventId, file }));
+    };
+
+    setTimeout(() => this.scrollIntoView(), 100);
+    this.scrollIntoView();
   }
 
-  select(event: any) {
-    const reader = new FileReader();
-
-    if (event.target.files && event.target.files.length) {
-      const [file] = event.target.files;
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.imgSrc = reader.result as string;
-        this.store.dispatch(MessengerActions.upload({ eventId: this.eventId, file }));
-      };
-    }
-    this.scrollIntoView();
+  send() {
+    this.store.dispatch(
+      MessengerActions.send({
+        event: { eventId: this.eventId, text: this.messageForm.value },
+      }),
+    );
+    this.messageForm.reset();
   }
 
   keypress(event: KeyboardEvent) {
     if (event.key === 'Enter' && !event.shiftKey) {
       event.preventDefault();
       if (this.messageForm.valid) {
-        this.sendMessage();
+        this.send();
       }
     }
   }
@@ -148,12 +158,10 @@ export class MessengerComponent implements AfterViewInit, OnDestroy {
   }
 
   scrollIntoView() {
-    setTimeout(() => {
-      this.messageContainer?.nativeElement?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'end',
-      });
-    }, 100);
+    this.messageContainer?.nativeElement?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'end',
+    });
   }
 
   scrollToBottom() {
@@ -161,6 +169,6 @@ export class MessengerComponent implements AfterViewInit, OnDestroy {
   }
 
   close() {
-    this.dialogRef.close();
+    this.router.navigate(['..'], { relativeTo: this.route });
   }
 }

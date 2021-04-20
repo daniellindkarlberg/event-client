@@ -18,7 +18,7 @@
   </div>
 
   <div class="menu">
-    <mat-icon class="chat" [style.color]="event.theme.primaryColor" (click)="openMessenger()">
+    <mat-icon class="messenger" [style.color]="event.theme.primaryColor" (click)="messenger()">
       chat
     </mat-icon>
 
@@ -71,5 +71,4 @@
     </div>
   </div>
 </div>
-
 <app-loader *ngIf="loading$ | async"></app-loader>

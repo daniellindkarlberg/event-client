@@ -129,23 +129,3 @@
     background-image: $default;
   }
 }
-
-@mixin material-dialog {
-  .mat-dialog-actions {
-    position: relative;
-    padding: 45px 24px 0 24px;
-    min-height: 30px;
-  }
-
-  .mat-dialog-container {
-    padding-top: 0;
-    padding-right: 0;
-    padding-left: 0;
-    border-radius: 10px;
-  }
-
-  .mat-dialog-content {
-    margin: 0;
-    padding: 0;
-  }
-}

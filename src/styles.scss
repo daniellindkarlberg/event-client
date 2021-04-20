@@ -15,19 +15,3 @@ body {
     outline: none;
   }
 }
-
-.mat-slide-toggle-label .mat-slide-toggle-content {
-  font-family: $poppins;
-}
-
-.app-messenger-light {
-  @include material-dialog;
-}
-
-.app-messenger-dark {
-  @include material-dialog;
-
-  .mat-dialog-container {
-    background-color: #252526;
-  }
-}

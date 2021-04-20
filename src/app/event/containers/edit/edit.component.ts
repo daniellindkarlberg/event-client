@@ -62,7 +62,6 @@ export class EditComponent implements OnInit, OnDestroy {
   Time = Time;
   Privacy = Privacy;
 
-  event$ = this.store.pipe(select(selectCurrentEvent));
   loading$ = this.store.pipe(select(getLoading));
   destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -116,7 +115,8 @@ export class EditComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
   ) {
     this.eventId = this.route.snapshot.paramMap.get('id');
-    this.event$
+    this.store
+      .pipe(select(selectCurrentEvent))
       .pipe(
         filter((event) => !!event),
         takeUntil(this.destroy$),
@@ -147,7 +147,6 @@ export class EditComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.store.dispatch(EventActions.clear());
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
   }

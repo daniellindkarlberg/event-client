@@ -1,10 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessengerActions } from '@core/actions';
 import { EventActions } from '@event/actions';
-import { MessengerComponent } from '@event/containers/messenger/messenger.component';
-import { Event, Mode } from '@event/models';
+import { Event } from '@event/models';
 import { select, Store } from '@ngrx/store';
 import { getLoading, getUser, getUserEvents, selectCurrentEvent, State } from '@root/reducers';
 import { UserActions } from '@user/actions';
@@ -29,15 +27,7 @@ export class EventComponent implements OnInit, OnDestroy {
     private readonly store: Store<State>,
     private readonly route: ActivatedRoute,
     private readonly router: Router,
-    private readonly dialog: MatDialog,
-  ) {}
-
-  ngOnInit() {
-    this.id = this.route.snapshot.paramMap.get('id');
-    this.store.dispatch(EventActions.getById({ id: this.id, shouldInitMessenger: true }));
-    this.store.dispatch(UserActions.getEvents());
-    this.store.dispatch(MessengerActions.join({ eventId: this.id }));
-
+  ) {
     this.store
       .pipe(select(selectCurrentEvent), takeUntil(this.destroy$))
       .subscribe((event) => (this.event = event));
@@ -47,6 +37,12 @@ export class EventComponent implements OnInit, OnDestroy {
     this.store
       .pipe(select(getUserEvents), takeUntil(this.destroy$))
       .subscribe((events) => (this.currentUserAttending = events.includes(this.id)));
+  }
+
+  ngOnInit() {
+    this.id = this.route.snapshot.paramMap.get('id');
+    this.store.dispatch(EventActions.getById({ id: this.id, shouldInitMessenger: false }));
+    this.store.dispatch(UserActions.getEvents());
   }
 
   ngOnDestroy() {
@@ -71,21 +67,7 @@ export class EventComponent implements OnInit, OnDestroy {
     this.router.navigate(['events', this.id, 'edit']);
   }
 
-  openMessenger() {
-    const dialogRef = this.dialog.open(MessengerComponent, {
-      disableClose: true,
-      data: { eventId: this.id, theme: this.event.theme },
-      panelClass: `app-messenger-${this.event.theme.darkMode ? Mode.DARK : Mode.LIGHT}`,
-    });
-
-    const subscription = dialogRef.componentInstance.send.subscribe((message) =>
-      this.store.dispatch(
-        MessengerActions.send({
-          event: { eventId: this.id, text: message },
-        }),
-      ),
-    );
-
-    dialogRef.afterClosed().subscribe(() => subscription.unsubscribe());
+  messenger() {
+    this.router.navigate(['events', this.id, 'messenger']);
   }
 }

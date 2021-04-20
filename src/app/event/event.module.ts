@@ -27,7 +27,7 @@ import { DateAndTimePipe } from '@utils/date-and-time.pipe';
 import { DayPipe } from '@utils/day.pipe';
 import { LinkPipe } from '@utils/link.pipe';
 import { components, MapDialogComponent } from './components';
-import { containers, MessengerComponent } from './containers';
+import { containers } from './containers';
 import { services } from './services';
 
 export function playerFactory() {
@@ -63,6 +63,6 @@ export function playerFactory() {
     }),
   ],
   providers: [...services],
-  entryComponents: [MapDialogComponent, MessengerComponent],
+  entryComponents: [MapDialogComponent],
 })
 export class EventModule {}

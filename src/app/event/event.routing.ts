@@ -1,6 +1,11 @@
 import { Routes } from '@angular/router';
 
-import { EditComponent, EventComponent, EventsComponent } from '@event/containers';
+import {
+  EditComponent,
+  EventComponent,
+  EventsComponent,
+  MessengerComponent,
+} from '@event/containers';
 
 export const EventRoutes: Routes = [
   {
@@ -20,5 +25,10 @@ export const EventRoutes: Routes = [
     path: ':id/edit',
     pathMatch: 'full',
     component: EditComponent,
+  },
+  {
+    path: ':id/messenger',
+    pathMatch: 'full',
+    component: MessengerComponent,
   },
 ];
