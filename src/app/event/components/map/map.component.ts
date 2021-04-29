@@ -11,6 +11,8 @@ import { style } from './style';
 export class MapComponent {
   @Input() location = {} as EventLocation;
   @Input() zoom = 12;
+  @Input() width = 0;
+  @Input() height = 0;
   @Input() fixedSize = false;
   @Input() readonly = false;
 

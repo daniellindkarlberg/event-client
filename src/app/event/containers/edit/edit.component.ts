@@ -24,6 +24,7 @@ import {
 } from '@utils/time';
 import * as moment from 'moment';
 import { Moment } from 'moment';
+import { DeviceDetectorService } from 'ngx-device-detector';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 
@@ -72,6 +73,7 @@ export class EditComponent implements OnInit, OnDestroy {
   minDate = new Date();
   locationSelected = false;
   showEndDate = false;
+  mobile = false;
 
   categories: Category[] = [
     { name: 'Art', value: 'art', icon: 'palette' },
@@ -136,7 +138,9 @@ export class EditComponent implements OnInit, OnDestroy {
     private readonly store: Store<State>,
     private route: ActivatedRoute,
     private dialog: MatDialog,
+    private deviceService: DeviceDetectorService,
   ) {
+    this.mobile = this.deviceService.isMobile();
     this.eventId = this.route.snapshot.paramMap.get('id');
     this.store
       .pipe(select(getEvent))
@@ -294,7 +298,11 @@ export class EditComponent implements OnInit, OnDestroy {
   openMapDialog() {
     const dialogRef = this.dialog.open(MapDialogComponent, {
       disableClose: true,
-      data: this.location,
+      data: {
+        location: this.location,
+        width: this.mobile ? 250 : 500,
+        height: this.mobile ? 250 : 500,
+      },
       autoFocus: false,
     });
 

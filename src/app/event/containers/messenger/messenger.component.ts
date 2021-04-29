@@ -73,7 +73,7 @@ export class MessengerComponent implements OnInit, AfterViewInit, OnDestroy {
         this.messages = messages;
 
         if (this.currentUser || this.inView) {
-          setTimeout(() => this.scrollToBottom(), 0);
+          setTimeout(() => this.scrollToBottom(), 200);
         } else {
           this.showNewMessageNotification = true;
         }
@@ -84,7 +84,7 @@ export class MessengerComponent implements OnInit, AfterViewInit, OnDestroy {
     fromEvent(this.content.nativeElement, 'scroll')
       .pipe(
         tap(({ target: { scrollTop, scrollHeight } }) => {
-          this.inView = scrollHeight - scrollTop < 1000;
+          this.inView = scrollHeight - scrollTop < 1500;
           if (this.inView) {
             this.showNewMessageNotification = false;
           }

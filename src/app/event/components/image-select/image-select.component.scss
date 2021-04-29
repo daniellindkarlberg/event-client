@@ -10,6 +10,10 @@
   justify-content: center;
   align-items: center;
   position: relative;
+
+  &.mobile {
+    width: 100%;
+  }
 }
 
 .tracker {
@@ -28,6 +32,11 @@ img {
   width: 100%;
   height: 130%;
   user-select: none;
+  object-fit: cover;
+
+  &.mobile {
+    height: 100%;
+  }
 }
 
 input[type='file'] {

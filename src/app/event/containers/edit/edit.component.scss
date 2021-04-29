@@ -20,9 +20,20 @@
   display: flex;
   justify-content: space-between;
   padding-top: 10px;
+  flex-wrap: wrap;
 
-  mat-form-field {
+  mat-form-field,
+  app-time-select {
     width: 210px;
+  }
+
+  &.mobile {
+    width: 100%;
+
+    mat-form-field,
+    app-time-select {
+      width: 100%;
+    }
   }
 }
 

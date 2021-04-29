@@ -1,4 +1,4 @@
-<div class="container">
+<div [ngClass]="{ container: !mobile }">
   <mat-vertical-stepper [linear]="true" #stepper>
     <mat-step [stepControl]="detailsForm">
       <form class="form" [formGroup]="detailsForm">
@@ -9,7 +9,7 @@
           <mat-hint align="end">{{ input.value?.length || 0 }}/50</mat-hint>
         </mat-form-field>
 
-        <div class="date">
+        <div class="date" [ngClass]="{ mobile: mobile }">
           <mat-form-field appearance="outline" [ngClass]="{ error: invalidDate }">
             <mat-label>Start date</mat-label>
             <input
@@ -30,7 +30,7 @@
           ></app-time-select>
         </div>
 
-        <div *ngIf="showEndDate" class="date">
+        <div *ngIf="showEndDate" class="date" [ngClass]="{ mobile: mobile }">
           <mat-form-field appearance="outline" [ngClass]="{ error: invalidDate }">
             <mat-label>End date</mat-label>
             <input
@@ -129,7 +129,9 @@
       <form class="form" [formGroup]="photoForm">
         <ng-template matStepLabel>Cover Photo</ng-template>
         <app-image-select
+          [ngClass]="{ mobile: mobile }"
           [src]="imageSrc"
+          [mobile]="mobile"
           (positionChange)="photoPositionTop = $event"
           (fileChange)="fileChange($event)"
           (fileReset)="fileReset()"
@@ -196,6 +198,7 @@
   </mat-vertical-stepper>
 
   <app-preview
+    *ngIf="!mobile"
     [host]="host"
     [name]="name"
     [startDate]="startDate"

@@ -24,6 +24,7 @@ export class ImageSelectComponent implements OnInit, OnDestroy {
       this.showInfo = true;
     }
   }
+  @Input() mobile = false;
   @Output() positionChange = new EventEmitter<number>();
   @Output() fileChange = new EventEmitter<Image>();
   @Output() fileReset = new EventEmitter<void>();
@@ -62,27 +63,29 @@ export class ImageSelectComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscription.add(
-      fromEvent<MouseEvent>(this.trackerRef.nativeElement, 'mousedown')
-        .pipe(
-          tap(() => (this.showInfo = false)),
-          switchMap(({ y: mouseDownY }) =>
-            this.mouseMove$.pipe(
-              takeUntil(this.mouseUp$),
-              finalize(() => (this.internalValue = this.posY)),
-              map(({ y: mouseMoveY }: MouseEvent) => Math.floor(mouseMoveY - mouseDownY)),
-              filter(
-                (posY) =>
-                  posY + this.internalValue < this.maxY && posY + this.internalValue > this.minY,
+    if (!this.mobile) {
+      this.subscription.add(
+        fromEvent<MouseEvent>(this.trackerRef.nativeElement, 'mousedown')
+          .pipe(
+            tap(() => (this.showInfo = false)),
+            switchMap(({ y: mouseDownY }) =>
+              this.mouseMove$.pipe(
+                takeUntil(this.mouseUp$),
+                finalize(() => (this.internalValue = this.posY)),
+                map(({ y: mouseMoveY }: MouseEvent) => Math.floor(mouseMoveY - mouseDownY)),
+                filter(
+                  (posY) =>
+                    posY + this.internalValue < this.maxY && posY + this.internalValue > this.minY,
+                ),
               ),
             ),
-          ),
-        )
-        .subscribe((value) => {
-          this.posY = value + this.internalValue;
-          this.positionChange.emit(this.posY);
-        }),
-    );
+          )
+          .subscribe((value) => {
+            this.posY = value + this.internalValue;
+            this.positionChange.emit(this.posY);
+          }),
+      );
+    }
   }
 
   ngOnDestroy() {

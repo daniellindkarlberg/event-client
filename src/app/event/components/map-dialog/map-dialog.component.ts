@@ -9,12 +9,16 @@ import { EventLocation } from '@event/models';
 })
 export class MapDialogComponent {
   location = {} as EventLocation;
+  width = 0;
+  height = 0;
 
   constructor(
     private dialogRef: MatDialogRef<MapDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) location: EventLocation,
+    @Inject(MAT_DIALOG_DATA) { location, width, height },
   ) {
     this.location = location;
+    this.width = width;
+    this.height = height;
   }
 
   locationChange(location: EventLocation) {

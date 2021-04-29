@@ -1,5 +1,5 @@
 <ng-container *ngIf="imageSrc">
-  <img [style.top.px]="posY" [src]="imageSrc" alt="image" />
+  <img [ngClass]="{ mobile: mobile }" [style.top.px]="posY" [src]="imageSrc" alt="image" />
   <div class="delete">
     <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
       <mat-icon>more_vert</mat-icon>
@@ -24,7 +24,7 @@
   </label>
 </ng-container>
 
-<div class="info" *ngIf="showInfo">
+<div class="info" *ngIf="showInfo && !mobile">
   <mat-icon>open_with</mat-icon>
   Drag to reposition
 </div>
