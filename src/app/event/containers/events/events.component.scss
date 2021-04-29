@@ -29,8 +29,10 @@
     border-top-right-radius: 6px;
   }
 
-  &:hover {
-    opacity: 0.7;
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      opacity: 0.7;
+    }
   }
 }
 .content {

@@ -1,9 +1,9 @@
 <div *ngIf="!(loading$ | async)" class="container" [ngClass]="{ 'messenger-open': showMessenger }">
-  <div class="photo" [style.background]="background">
+  <div class="photo" [style.background]="photoBackground">
     <img [style.top.px]="event.photo.positionTop" [src]="event.photo.imgUrl" alt="image" />
   </div>
 
-  <div class="header-event">
+  <div class="header-event" [style.background]="headerBackground">
     <div class="calendar">
       <div class="top"></div>
       <div class="day">{{ event.startDate | day }}</div>

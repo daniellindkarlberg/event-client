@@ -1,6 +1,6 @@
 <div class="menu">
-  <div class="logo"></div>
-  <div class="navigation">
+  <div class="logo">EVENTFULLY</div>
+  <div *ngIf="!mobile" class="navigation">
     <div class="item" (click)="navigateToEvents.emit()">
       <mat-icon>list</mat-icon>
       <div>Events</div>
@@ -17,4 +17,23 @@
       </mat-menu>
     </div>
   </div>
+  <mat-icon class="mobile-menu" *ngIf="mobile" [matMenuTriggerFor]="menu">menu</mat-icon>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="navigateToEvents.emit()">
+      <mat-icon class="action">list</mat-icon>
+      <span>Events</span>
+    </button>
+    <button mat-menu-item (click)="navigateToCreateEvent.emit()">
+      <mat-icon class="action">calendar_today</mat-icon>
+      <span>Create Event</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon class="action">manage_accounts</mat-icon>
+      <span>Settings</span>
+    </button>
+    <button mat-menu-item (click)="logout.emit()">
+      <mat-icon class="action">logout</mat-icon>
+      <span>Sign out</span>
+    </button>
+  </mat-menu>
 </div>

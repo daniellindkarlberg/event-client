@@ -52,13 +52,16 @@
   }
 
   &.self {
-    @include message-theme;
     background-color: $classic;
     color: $white;
     background-attachment: fixed;
 
-    @supports (-webkit-overflow-scrolling: touch) {
-      // ADD MOBILE THEMES
+    @media (hover) {
+      @include message-theme;
+    }
+
+    @media (hover: none) {
+      @include message-theme-mobile;
     }
   }
 }

@@ -80,9 +80,6 @@
   &.blue-grey {
     background-color: $blue-grey;
   }
-  &.black {
-    background-color: $black;
-  }
   &.tie-dye {
     background-image: $tie-dye;
   }
@@ -127,5 +124,134 @@
   }
   &.default {
     background-image: $default;
+  }
+}
+
+@mixin message-theme-mobile {
+  &.rose {
+    background-color: $rose;
+  }
+  &.classic {
+    background-color: $classic;
+  }
+  &.tulip {
+    background-color: $tulip;
+  }
+  &.kiwi {
+    background-color: $kiwi;
+  }
+  &.peach {
+    background-color: $peach;
+  }
+  &.monochrome {
+    background-color: $monochrome;
+  }
+  &.ocean {
+    background-color: $ocean;
+  }
+  &.honey {
+    background-color: $honey;
+  }
+  &.lavender {
+    background-color: $lavender;
+  }
+  &.apple {
+    background-color: $apple;
+  }
+  &.red {
+    background-color: $red;
+  }
+  &.pink {
+    background-color: $pink;
+  }
+  &.purple {
+    background-color: $purple;
+  }
+  &.deep-purple {
+    background-color: $deep-purple;
+  }
+  &.indigo {
+    background-color: $indigo;
+  }
+  &.blue {
+    background-color: $blue;
+  }
+  &.light-blue {
+    background-color: $light-blue;
+  }
+  &.cyan {
+    background-color: $cyan;
+  }
+  &.teal {
+    background-color: $teal;
+  }
+  &.green {
+    background-color: $green;
+  }
+  &.light-green {
+    background-color: $light-green;
+  }
+  &.lime {
+    background-color: $lime;
+  }
+  &.amber {
+    background-color: $amber;
+  }
+  &.deep-orange {
+    background-color: $deep-orange;
+  }
+  &.brown {
+    background-color: $brown;
+  }
+  &.grey {
+    background-color: $grey;
+  }
+  &.blue-grey {
+    background-color: $blue-grey;
+  }
+  &.tie-dye {
+    background-color: $tie-dye-primary;
+  }
+  &.tropical {
+    background-color: $tropical-primary;
+  }
+  &.shadow {
+    background-color: $shadow-primary;
+  }
+  &.unicorn {
+    background-color: $unicorn-primary;
+  }
+  &.lollipop {
+    background-color: $lollipop-primary;
+  }
+  &.chill {
+    background-color: $chill-primary;
+  }
+  &.citrus {
+    background-color: $citrus-primary;
+  }
+  &.rocket {
+    background-color: $rocket-primary;
+  }
+  &.candy {
+    background-color: $candy-primary;
+  }
+  &.berry {
+    background-color: $berry-primary;
+  }
+  &.sushi {
+    background-color: $sushi-primary;
+  }
+  &.tiny-tan {
+    background-color: $tiny-tan-primary;
+  }
+  &.pride {
+    background-color: $pride-primary;
+  }
+  &.maple {
+    background-color: $maple-primary;
+  }
+  &.default {
+    background-color: $default-primary;
   }
 }

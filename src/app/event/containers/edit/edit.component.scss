@@ -8,6 +8,12 @@
   margin-top: 60px;
 }
 
+mat-vertical-stepper {
+  &.mobile {
+    margin-top: 60px;
+  }
+}
+
 .form {
   display: flex;
   flex-direction: column;
@@ -110,6 +116,12 @@ app-preview {
 
   mat-form-field {
     width: 400px;
+  }
+
+  &.mobile {
+    mat-form-field {
+      width: 90%;
+    }
   }
 }
 

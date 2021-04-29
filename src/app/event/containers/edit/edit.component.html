@@ -1,5 +1,5 @@
 <div [ngClass]="{ container: !mobile }">
-  <mat-vertical-stepper [linear]="true" #stepper>
+  <mat-vertical-stepper [ngClass]="{ mobile: mobile }" [linear]="true" #stepper>
     <mat-step [stepControl]="detailsForm">
       <form class="form" [formGroup]="detailsForm">
         <ng-template matStepLabel>Details</ng-template>
@@ -164,7 +164,7 @@
       <form class="form" [formGroup]="inviteForm">
         <ng-template matStepLabel>Invite</ng-template>
 
-        <div class="emails" formArrayName="emails">
+        <div class="emails" [ngClass]="{ mobile: mobile }" formArrayName="emails">
           <mat-icon
             class="add"
             [style.visibility]="emails.controls.length < 5 ? 'visible' : 'hidden'"

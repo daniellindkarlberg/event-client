@@ -6,6 +6,7 @@ import { Event, Privacy } from '@event/models';
 import { select, Store } from '@ngrx/store';
 import { getEvent, getLoading, getUser, getUserEvents, State } from '@root/reducers';
 import { UserActions } from '@user/actions';
+import { DeviceDetectorService } from 'ngx-device-detector';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -16,6 +17,7 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class EventComponent implements OnInit, OnDestroy {
   Privacy = Privacy;
+
   private readonly destroy$ = new Subject();
   loading$ = this.store.pipe(select(getLoading));
 
@@ -24,12 +26,15 @@ export class EventComponent implements OnInit, OnDestroy {
   userId = '';
   currentUserAttending = false;
   showMessenger = false;
+  mobile = false;
 
   constructor(
     private readonly store: Store<State>,
     private readonly route: ActivatedRoute,
     private readonly router: Router,
+    private deviceService: DeviceDetectorService,
   ) {
+    this.mobile = this.deviceService.isMobile();
     this.store
       .pipe(select(getEvent), takeUntil(this.destroy$))
       .subscribe((event) => (this.event = event));
@@ -53,8 +58,14 @@ export class EventComponent implements OnInit, OnDestroy {
     this.destroy$.unsubscribe();
   }
 
-  get background() {
+  get photoBackground() {
     return `linear-gradient(180deg, ${this.event.theme.primaryColor} 0%, rgba(255,255,255,1) 100%)`;
+  }
+
+  get headerBackground() {
+    return this.mobile
+      ? `linear-gradient(170deg,  ${this.event.theme.primaryColor} 0%, rgba(255, 255, 255, 0) 17%)`
+      : '#ffffff';
   }
 
   addGuest() {

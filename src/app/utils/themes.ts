@@ -28,7 +28,6 @@ export const themes: Partial<Theme>[] = [
   { name: 'grey', primaryColor: 'rgb(189, 189, 189)' },
   { name: 'blue-grey', primaryColor: 'rgb(120, 144, 156)' },
   { name: 'monochrome', primaryColor: 'rgb(96, 96, 96)' },
-  { name: 'black', primaryColor: 'rgb(0, 0, 0)' },
   { name: 'tie-dye', primaryColor: 'rgb(0, 82, 205)' },
   { name: 'tropical', primaryColor: 'rgb(159, 213, 45)' },
   { name: 'shadow', primaryColor: 'rgb(40, 37, 181)' },
