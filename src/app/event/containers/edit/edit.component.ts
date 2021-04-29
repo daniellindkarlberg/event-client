@@ -9,9 +9,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { EventActions } from '@event/actions';
 import { MapDialogComponent } from '@event/components';
-import { Event, EventLocation, Host, Image, Privacy, Theme } from '@event/models';
+import { Category, Event, EventLocation, Host, Image, Privacy, Theme } from '@event/models';
 import { select, Store } from '@ngrx/store';
-import { getLoading, getUser, selectCurrentEvent, State } from '@root/reducers';
+import { getEvent, getLoading, getUser, State } from '@root/reducers';
 import {
   dateValidation,
   getFilteredSelectOptions,
@@ -62,8 +62,8 @@ export class EditComponent implements OnInit, OnDestroy {
   Time = Time;
   Privacy = Privacy;
 
+  private readonly destroy$ = new Subject();
   loading$ = this.store.pipe(select(getLoading));
-  destroy$: Subject<boolean> = new Subject<boolean>();
 
   eventId = '';
   host = {} as Host;
@@ -73,6 +73,28 @@ export class EditComponent implements OnInit, OnDestroy {
   locationSelected = false;
   showEndDate = false;
 
+  categories: Category[] = [
+    { name: 'Art', value: 'art', icon: 'palette' },
+    { name: 'Causes', value: 'causes', icon: 'bookmark' },
+    { name: 'Comedy', value: 'comedy', icon: 'sentiment_very_satisfied' },
+    { name: 'Crafs', value: 'crafts', icon: 'content_cut' },
+    { name: 'Drinks', value: 'drinks', icon: 'nightlife' },
+    { name: 'Film', value: 'film', icon: 'videocam' },
+    { name: 'Fitness', value: 'fitness', icon: 'fitness_center' },
+    { name: 'Food', value: 'food', icon: 'restaurant' },
+    { name: 'Games', value: 'games', icon: 'games' },
+    { name: 'Gardening', value: 'gardening', icon: 'local_florist' },
+    { name: 'Health', value: 'health', icon: 'health_and_safety' },
+    { name: 'Home', value: 'home', icon: 'home' },
+    { name: 'Literature', value: 'literature', icon: 'menu_book' },
+    { name: 'Music', value: 'music', icon: 'audiotrack' },
+    { name: 'Networking', value: 'networking', icon: 'share' },
+    { name: 'Party', value: 'party', icon: 'cake' },
+    { name: 'Shopping', value: 'shopping', icon: 'shopping_bag' },
+    { name: 'Sports', value: 'sports', icon: 'sports_soccer' },
+    { name: 'Theatre', value: 'theatre', icon: 'theater_comedy' },
+    { name: 'Wellness', value: 'wellness', icon: 'spa' },
+  ];
   hours = {
     [Time.START]: [] as Hour[],
     [Time.END]: [] as Hour[],
@@ -86,6 +108,7 @@ export class EditComponent implements OnInit, OnDestroy {
       endDate: new FormControl(null),
       endTime: new FormControl(null),
       privacy: new FormControl(Privacy.PUBLIC),
+      category: new FormControl('value'),
     },
     Validators.compose([dateValidation, timeValidation]),
   );
@@ -116,7 +139,7 @@ export class EditComponent implements OnInit, OnDestroy {
   ) {
     this.eventId = this.route.snapshot.paramMap.get('id');
     this.store
-      .pipe(select(selectCurrentEvent))
+      .pipe(select(getEvent))
       .pipe(
         filter((event) => !!event),
         takeUntil(this.destroy$),
@@ -147,7 +170,7 @@ export class EditComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.destroy$.next(true);
+    this.destroy$.next();
     this.destroy$.unsubscribe();
   }
 
@@ -189,6 +212,10 @@ export class EditComponent implements OnInit, OnDestroy {
 
   get theme() {
     return this.themeForm.value;
+  }
+
+  get category() {
+    return this.detailsForm.get('category').value;
   }
 
   get invalidDate() {
@@ -236,6 +263,7 @@ export class EditComponent implements OnInit, OnDestroy {
     const { name, startDate, startTime, endDate, endTime, location, description, theme } = this;
     const { file } = this.photoForm.value;
     const { privacy } = this.detailsForm.value;
+    const category = this.categories.find((c) => c.value === this.category) || ({} as Category);
     const event = {
       name,
       startDate: getTimestamp(startDate, startTime),
@@ -247,6 +275,7 @@ export class EditComponent implements OnInit, OnDestroy {
       },
       theme,
       privacy,
+      category,
     } as Event;
 
     if (this.eventId) {
@@ -289,7 +318,18 @@ export class EditComponent implements OnInit, OnDestroy {
   }
 
   setInitialValues(event: Event) {
-    const { host, name, startDate, endDate, description, photo, location, theme, privacy } = event;
+    const {
+      host,
+      name,
+      startDate,
+      endDate,
+      description,
+      photo,
+      location,
+      theme,
+      privacy,
+      category: { value },
+    } = event;
 
     if (endDate) {
       this.showEndDate = true;
@@ -305,6 +345,7 @@ export class EditComponent implements OnInit, OnDestroy {
         endTime: moment.unix(endDate).format('LT'),
       }),
       privacy,
+      category: value,
     });
     this.descriptionForm.patchValue({ description });
     this.imageSrc = photo.imgUrl;

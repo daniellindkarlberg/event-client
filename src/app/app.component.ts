@@ -2,14 +2,16 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthActions } from '@auth/actions';
 import { EventActions } from '@event/actions';
-import { Store } from '@ngrx/store';
-import { State } from '@root/reducers';
+import { select, Store } from '@ngrx/store';
+import { getUserPicture, State } from '@root/reducers';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+  userPicture$ = this.store.pipe(select(getUserPicture));
+
   constructor(private readonly store: Store<State>, private readonly router: Router) {}
 
   navigateToEvents() {

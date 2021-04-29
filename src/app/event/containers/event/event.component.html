@@ -1,4 +1,4 @@
-<div *ngIf="!(loading$ | async)" class="container">
+<div *ngIf="!(loading$ | async)" class="container" [ngClass]="{ 'messenger-open': showMessenger }">
   <div class="photo" [style.background]="background">
     <img [style.top.px]="event.photo.positionTop" [src]="event.photo.imgUrl" alt="image" />
   </div>
@@ -9,22 +9,38 @@
       <div class="day">{{ event.startDate | day }}</div>
     </div>
     <div class="date">
-      {{ event.startDate | dateAndTime }}
+      <span>{{ event.startDate | dateAndTime }}</span>
+      <span *ngIf="event.endDate">
+        <span>&nbsp;-&nbsp;</span>
+        {{ event.endDate | dateAndTime }}
+      </span>
     </div>
     <div class="name" [style.color]="event.theme.primaryColor">
       {{ event.name }}
     </div>
     <div>{{ event.location.address }}</div>
+    <div class="privacy">
+      <mat-icon>{{ event.privacy === Privacy.PUBLIC ? 'public' : 'locked' }}</mat-icon>
+      {{ event.privacy === Privacy.PUBLIC ? 'Public' : 'Private' }} Event
+    </div>
+    <div class="category">
+      <mat-icon>{{ event.category.icon }}</mat-icon>
+      {{ event.category.name }}
+    </div>
   </div>
 
   <div class="menu">
-    <mat-icon class="messenger" [style.color]="event.theme.primaryColor" (click)="messenger()">
+    <mat-icon
+      class="messenger"
+      [style.color]="event.theme.primaryColor"
+      (click)="showMessenger = true"
+    >
       chat
     </mat-icon>
 
     <div class="actions">
       <button
-        *ngIf="event.host.id !== currentUserId"
+        *ngIf="event.host.id !== userId"
         [ngClass]="{ going: currentUserAttending }"
         mat-button
         [matMenuTriggerFor]="menu"
@@ -36,7 +52,7 @@
         <button mat-menu-item [disabled]="currentUserAttending" (click)="addGuest()">Yes</button>
         <button mat-menu-item [disabled]="!currentUserAttending" (click)="removeGuest()">No</button>
       </mat-menu>
-      <ng-container *ngIf="event.host.id === currentUserId">
+      <ng-container *ngIf="event.host.id === userId">
         <button mat-button>
           <mat-icon>mail_outline</mat-icon>
           <span>Invite</span>
@@ -50,20 +66,27 @@
   </div>
   <div class="details">
     <div class="card">
+      <div class="header-details">Host</div>
+      <div class="host">
+        <img [src]="event.host.picture" alt="Avatar" class="avatar" />
+        <div>{{ event.host.nickname }}</div>
+      </div>
       <div class="header-details">Going</div>
       <div class="row">
         <mat-icon>people</mat-icon>
-        <div>1 person going, including {{ event.host.nickname }}</div>
+        <div>{{ event.guests.length }}</div>
       </div>
       <div class="row guests">
-        <img [src]="event.host.picture" alt="Avatar" class="avatar" />
+        <div *ngFor="let guest of event.guests">
+          <img [src]="guest.picture" alt="Avatar" class="avatar guest" />
+        </div>
       </div>
       <div class="row date">
         <mat-icon>access_time_filled</mat-icon>
         <div>{{ event.startDate | dateAndTime }}</div>
       </div>
       <div class="header-details">Description</div>
-      <div>{{ event.description }}</div>
+      <div class="description">{{ event.description }}</div>
     </div>
     <div class="card">
       <app-map [location]="event.location" [readonly]="true"></app-map>
@@ -71,4 +94,11 @@
     </div>
   </div>
 </div>
+
+<app-messenger
+  *ngIf="showMessenger"
+  [userId]="userId"
+  [event]="event"
+  (closeMessenger)="showMessenger = false"
+></app-messenger>
 <app-loader *ngIf="loading$ | async"></app-loader>

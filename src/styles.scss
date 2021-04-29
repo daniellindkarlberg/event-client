@@ -15,3 +15,11 @@ body {
     outline: none;
   }
 }
+
+.mat-menu-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 80px;
+  min-height: 0;
+}

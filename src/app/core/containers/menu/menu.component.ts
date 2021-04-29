@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-menu',
@@ -6,6 +6,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./menu.component.scss'],
 })
 export class MenuComponent {
+  @Input() userPicture = '';
   @Output() navigateToEvents = new EventEmitter<void>();
   @Output() navigateToCreateEvent = new EventEmitter<void>();
   @Output() logout = new EventEmitter<void>();

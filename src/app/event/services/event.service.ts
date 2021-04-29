@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Message } from '@core/models';
 import { environment } from '@envs/environment';
 import { Event } from '@event/models';
+import { User } from '@user/models';
 
 @Injectable({
   providedIn: 'root',
@@ -39,10 +40,10 @@ export class EventService {
   }
 
   addGuest(id: string) {
-    return this.http.post<void>(`${this.apiUrl}/guest/${id}`, {});
+    return this.http.post<Partial<User[]>>(`${this.apiUrl}/guest/${id}`, {});
   }
 
   removeGuest(id: string) {
-    return this.http.delete<void>(`${this.apiUrl}/guest/${id}`);
+    return this.http.delete<Partial<User[]>>(`${this.apiUrl}/guest/${id}`);
   }
 }

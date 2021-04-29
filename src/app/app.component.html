@@ -1,4 +1,5 @@
 <app-menu
+  [userPicture]="userPicture$ | async"
   (navigateToEvents)="navigateToEvents()"
   (navigateToCreateEvent)="navigateToCreateEvent()"
   (logout)="logout()"

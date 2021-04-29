@@ -37,7 +37,7 @@ export const selectEventEntities = createSelector(getEventState, fromEvent.selec
 
 export const getSelectedEventId = createSelector(getEventState, (state) => state.selectedId);
 
-export const selectCurrentEvent = createSelector(
+export const getEvent = createSelector(
   selectEventEntities,
   getSelectedEventId,
   (eventEntities, eventId) => eventEntities[eventId],

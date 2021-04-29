@@ -1,4 +1,5 @@
 import { EventActions } from '@event/actions';
+import { removeGuestSuccess } from '@event/actions/event.actions';
 import { Event } from '@event/models';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { createReducer, on } from '@ngrx/store';
@@ -45,6 +46,10 @@ export const reducer = createReducer(
         selectedId: event.id,
         loading: false,
       }),
+  ),
+
+  on(EventActions.addGuestSuccess, removeGuestSuccess, (state, { event }) =>
+    adapter.updateOne(event, state),
   ),
 
   on(

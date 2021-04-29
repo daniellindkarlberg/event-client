@@ -2,8 +2,8 @@
 
 .container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 300px);
-  grid-auto-rows: 300px;
+  grid-template-columns: repeat(auto-fill, 350px);
+  grid-auto-rows: 350px;
   grid-gap: 25px;
   justify-content: center;
   margin: 60px;
@@ -47,4 +47,16 @@
 .name {
   font-size: 18px;
   font-weight: 700;
+}
+
+.privacy,
+.category {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+
+  mat-icon {
+    color: $light-orange;
+    margin-right: 5px;
+  }
 }

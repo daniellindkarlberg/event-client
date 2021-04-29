@@ -6,6 +6,14 @@
       <div class="name" [style.color]="event.theme.primaryColor">
         {{ event.name }}
       </div>
+      <div class="privacy">
+        <mat-icon>{{ event.privacy === Privacy.PUBLIC ? 'public' : 'locked' }}</mat-icon>
+        {{ event.privacy === Privacy.PUBLIC ? 'Public' : 'Private' }} Event
+      </div>
+      <div class="category">
+        <mat-icon>{{ event.category.icon }}</mat-icon>
+        {{ event.category.name }}
+      </div>
     </div>
   </div>
 </div>

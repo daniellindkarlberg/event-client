@@ -1,6 +1,6 @@
-<div class="messenger" [ngClass]="{ dark: darkMode }" [style.color]="theme.primaryColor">
+<div class="messenger" [ngClass]="{ dark: darkMode }" [style.color]="event.theme.primaryColor">
   <div class="actions top" [ngClass]="{ dark: darkMode }">
-    <mat-icon (click)="close()">cancel</mat-icon>
+    <mat-icon (click)="closeMessenger.emit()">cancel</mat-icon>
   </div>
 
   <div class="content" #content>
@@ -9,12 +9,13 @@
         *ngFor="let message of messages"
         [message]="message"
         [userId]="userId"
-        [theme]="theme.name"
+        [theme]="event.theme.name"
         [darkMode]="darkMode"
-        (fullSize)="showFullSizeImage = true; fullSizeImageUrl = $event"
+        (fullSizeImageUrl)="showFullSizeImage = true; fullSizeImageUrl = $event"
+        (reply)="activeReply = true; replyToMessage = $event"
       ></app-message>
       <mat-icon
-        *ngIf="!inView && !(notification$ | async)"
+        *ngIf="!inView && !showNewMessageNotification && !activeReply"
         class="scroll-action"
         [@arrow]
         (click)="scrollIntoView()"
@@ -22,9 +23,9 @@
         arrow_drop_down_circle
       </mat-icon>
       <mat-icon
-        *ngIf="notification$ | async"
+        *ngIf="showNewMessageNotification"
         class="scroll-action notification"
-        (click)="scrollIntoView(); notification$.next(false)"
+        (click)="scrollIntoView()"
       >
         sms
       </mat-icon>
@@ -37,6 +38,22 @@
 
   <div class="actions bottom" [ngClass]="{ dark: darkMode }">
     <div class="text-area-wrapper">
+      <div *ngIf="activeReply" class="reply-to" [ngClass]="{ dark: darkMode }">
+        <div class="message">
+          <div>
+            Replying to
+            <span class="sender">{{ replyToMessage.sender.nickname }}</span>
+          </div>
+          <img
+            *ngIf="replyToMessage.photo"
+            class="image"
+            [src]="replyToMessage.thumbnailUrl"
+            alt=""
+          />
+          <div *ngIf="!replyToMessage.photo" class="text">{{ replyToMessage.text }}</div>
+        </div>
+        <mat-icon (click)="activeReply = false">close</mat-icon>
+      </div>
       <textarea
         [ngClass]="{ dark: darkMode }"
         autosize
@@ -60,7 +77,7 @@
     <mat-icon class="emoji" (click)="showEmoticons = true">emoji_emotions</mat-icon>
     <mat-icon
       class="send"
-      [style.color]="theme.primaryColor"
+      [style.color]="event.theme.primaryColor"
       *ngIf="messageFormValid"
       (click)="send()"
     >

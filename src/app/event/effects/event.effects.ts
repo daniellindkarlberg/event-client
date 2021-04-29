@@ -90,7 +90,10 @@ export class EventEffects {
       ofType(EventActions.addGuest),
       concatMap(({ id }) =>
         this.service.addGuest(id).pipe(
-          switchMap(() => [EventActions.addGuestSuccess(), UserActions.getEvents()]),
+          switchMap((guests) => [
+            EventActions.addGuestSuccess({ event: { id, changes: { guests: [...guests] } } }),
+            UserActions.getEvents(),
+          ]),
           catchError((error) => [EventActions.addGuestFailure({ error })]),
         ),
       ),
@@ -102,7 +105,10 @@ export class EventEffects {
       ofType(EventActions.removeGuest),
       concatMap(({ id }) =>
         this.service.removeGuest(id).pipe(
-          switchMap(() => [EventActions.removeGuestSuccess(), UserActions.getEvents()]),
+          switchMap((guests) => [
+            EventActions.removeGuestSuccess({ event: { id, changes: { guests: [...guests] } } }),
+            UserActions.getEvents(),
+          ]),
           catchError((error) => [EventActions.removeGuestFailure({ error })]),
         ),
       ),

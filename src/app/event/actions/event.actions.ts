@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Message } from '@core/models';
+import { Update } from '@ngrx/entity';
 import { createAction, props } from '@ngrx/store';
 import { Event } from '../models';
 
@@ -51,14 +52,20 @@ export const uploadFailure = createAction(
 );
 
 export const addGuest = createAction('[Event] Add Guest', props<{ id: string }>());
-export const addGuestSuccess = createAction('[Event] Add Guest Success');
+export const addGuestSuccess = createAction(
+  '[Event] Add Guest Success',
+  props<{ event: Update<Event> }>(),
+);
 export const addGuestFailure = createAction(
   '[Event] Add Guest Failure',
   props<{ error: HttpErrorResponse }>(),
 );
 
 export const removeGuest = createAction('[Event] Remove Guest', props<{ id: string }>());
-export const removeGuestSuccess = createAction('[Event] Reove Guest Success');
+export const removeGuestSuccess = createAction(
+  '[Event] Reove Guest Success',
+  props<{ event: Update<Event> }>(),
+);
 export const removeGuestFailure = createAction(
   '[Event] Remnove Guest Failure',
   props<{ error: HttpErrorResponse }>(),

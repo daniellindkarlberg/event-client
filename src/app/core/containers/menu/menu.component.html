@@ -2,20 +2,19 @@
   <div class="logo"></div>
   <div class="navigation">
     <div class="item" (click)="navigateToEvents.emit()">
-      <mat-icon>event</mat-icon>
+      <mat-icon>list</mat-icon>
       <div>Events</div>
     </div>
     <div class="item" (click)="navigateToCreateEvent.emit()">
-      <mat-icon>add_circle</mat-icon>
+      <mat-icon>calendar_today</mat-icon>
       <div>Create Event</div>
     </div>
     <div class="item">
-      <mat-icon>manage_accounts</mat-icon>
-      <div>Settings</div>
-    </div>
-    <div class="item" (click)="logout.emit()">
-      <mat-icon>logout</mat-icon>
-      <div>Logout</div>
+      <img [src]="userPicture" alt="Avatar" class="avatar" [matMenuTriggerFor]="menu" />
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>Settings</button>
+        <button mat-menu-item (click)="logout.emit()">Sign out</button>
+      </mat-menu>
     </div>
   </div>
 </div>

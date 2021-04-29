@@ -1,21 +1,23 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 import { MessengerActions } from '@core/actions';
 import { Message } from '@core/models';
 import { EmojiEvent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
-import { EventActions } from '@event/actions';
-import { Mode, Theme } from '@event/models';
+import { Event, Mode } from '@event/models';
 import { select, Store } from '@ngrx/store';
-import {
-  getMessages,
-  getMessagesLoading,
-  getUser,
-  selectCurrentEvent,
-  State,
-} from '@root/reducers';
-import { BehaviorSubject, fromEvent, Subject } from 'rxjs';
+import { getMessages, getMessagesLoading, State } from '@root/reducers';
+import { fromEvent, Subject } from 'rxjs';
 import { filter, takeUntil, tap } from 'rxjs/operators';
 import scrollIntoView from 'scroll-into-view-if-needed';
 
@@ -30,46 +32,35 @@ import scrollIntoView from 'scroll-into-view-if-needed';
     ]),
   ],
 })
-export class MessengerComponent implements AfterViewInit, OnInit, OnDestroy {
+export class MessengerComponent implements OnInit, AfterViewInit, OnDestroy {
   Mode = Mode;
 
   @ViewChild('content') content = {} as ElementRef;
   @ViewChild('messageContainer') messageContainer = {} as ElementRef;
 
+  private readonly destroy$ = new Subject();
   loading$ = this.store.pipe(select(getMessagesLoading));
-  notification$ = new BehaviorSubject<boolean>(false);
-  destroy$: Subject<boolean> = new Subject<boolean>();
 
-  eventId = '';
-  userId = '';
-  theme = {} as Theme;
+  @Input() userId = '';
+  @Input() event = {} as Event;
+  @Output() closeMessenger = new EventEmitter<void>();
+
   messages: Message[] = [];
   messageForm = new FormControl('', Validators.required);
   currentUser = false;
   showEmoticons = false;
   showFullSizeImage = false;
+  showNewMessageNotification = false;
   inView = true;
+  activeReply = false;
+  replyToMessage = {} as Message;
   imgSrc = '';
   fullSizeImageUrl = '';
 
-  constructor(
-    private readonly store: Store<State>,
-    private readonly route: ActivatedRoute,
-    private readonly router: Router,
-  ) {
-    this.store
-      .pipe(
-        select(selectCurrentEvent),
-        filter((event) => !!event),
-        takeUntil(this.destroy$),
-      )
-      .subscribe((event) => {
-        this.eventId = event.id;
-        this.theme = event.theme;
-      });
-    this.store
-      .pipe(select(getUser), takeUntil(this.destroy$))
-      .subscribe((user) => (this.userId = user.user_id));
+  constructor(private readonly store: Store<State>) {}
+
+  ngOnInit() {
+    this.store.dispatch(MessengerActions.join({ eventId: this.event.id }));
     this.store
       .pipe(
         select(getMessages),
@@ -82,26 +73,20 @@ export class MessengerComponent implements AfterViewInit, OnInit, OnDestroy {
         this.messages = messages;
 
         if (this.currentUser || this.inView) {
-          setTimeout(() => this.scrollToBottom(), 300);
+          setTimeout(() => this.scrollToBottom(), 0);
         } else {
-          this.notification$.next(true);
+          this.showNewMessageNotification = true;
         }
       });
-  }
-
-  ngOnInit() {
-    this.eventId = this.route.snapshot.paramMap.get('id');
-    this.store.dispatch(EventActions.getById({ id: this.eventId, shouldInitMessenger: true }));
-    this.store.dispatch(MessengerActions.join({ eventId: this.eventId }));
   }
 
   ngAfterViewInit() {
     fromEvent(this.content.nativeElement, 'scroll')
       .pipe(
         tap(({ target: { scrollTop, scrollHeight } }) => {
-          this.inView = scrollHeight - scrollTop < 1500;
+          this.inView = scrollHeight - scrollTop < 1000;
           if (this.inView) {
-            this.notification$.next(false);
+            this.showNewMessageNotification = false;
           }
         }),
         takeUntil(this.destroy$),
@@ -110,17 +95,17 @@ export class MessengerComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.destroy$.next(true);
+    this.destroy$.next();
     this.destroy$.unsubscribe();
   }
 
   get messageFormValid() {
-    const value = this.messageForm.value?.replace(/^\n|\n$/g, '').trim();
-    return value && this.messageForm.valid;
+    const valueWithoutSpaces = this.messageForm.value?.replace(/^\n|\n$/g, '').trim();
+    return valueWithoutSpaces && this.messageForm.valid;
   }
 
   get darkMode() {
-    return this.theme.darkMode;
+    return this.event.theme.darkMode;
   }
 
   upload(event: any) {
@@ -129,20 +114,28 @@ export class MessengerComponent implements AfterViewInit, OnInit, OnDestroy {
     reader.readAsDataURL(file);
     reader.onload = () => {
       this.imgSrc = reader.result as string;
-      this.store.dispatch(MessengerActions.upload({ eventId: this.eventId, file }));
+      this.store.dispatch(MessengerActions.upload({ eventId: this.event.id, file }));
     };
 
     setTimeout(() => this.scrollIntoView(), 100);
-    this.scrollIntoView();
   }
 
   send() {
     this.store.dispatch(
       MessengerActions.send({
-        event: { eventId: this.eventId, text: this.messageForm.value },
+        event: {
+          eventId: this.event.id,
+          text: this.messageForm.value,
+          ...(this.activeReply && {
+            reply: true,
+            replyTo: this.replyToMessage.sender.nickname,
+            originalMessage: this.replyToMessage.text,
+          }),
+        },
       }),
     );
     this.messageForm.reset();
+    this.activeReply = false;
   }
 
   keypress(event: KeyboardEvent) {
@@ -167,9 +160,5 @@ export class MessengerComponent implements AfterViewInit, OnInit, OnDestroy {
 
   scrollToBottom() {
     this.content.nativeElement.scrollTop = this.content.nativeElement.scrollHeight;
-  }
-
-  close() {
-    this.router.navigate(['..'], { relativeTo: this.route });
   }
 }

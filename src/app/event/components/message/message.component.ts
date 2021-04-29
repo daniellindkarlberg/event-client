@@ -11,11 +11,15 @@ import * as moment from 'moment';
 })
 export class MessageComponent {
   Mode = Mode;
+
   @Input() message = {} as Message;
   @Input() theme = '';
   @Input() darkMode = false;
   @Input() userId = '';
-  @Output() fullSize = new EventEmitter<string>();
+  @Output() fullSizeImageUrl = new EventEmitter<string>();
+  @Output() reply = new EventEmitter<Message>();
+
+  showActions = false;
 
   get time() {
     return moment.unix(this.message.createdAt).format('lll');

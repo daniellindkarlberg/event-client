@@ -9,5 +9,6 @@ export interface Message {
   thumbnailUrl?: string;
   reply: boolean;
   replyTo?: string;
+  originalMessage?: string;
   createdAt: number;
 }

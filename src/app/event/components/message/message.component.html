@@ -1,11 +1,19 @@
-<div class="message">
+<div class="message" (mouseover)="showActions = true" (mouseout)="showActions = false">
   <div class="content" [ngClass]="{ self: currentUser }">
+    <div
+      *ngIf="currentUser"
+      [style.visibility]="showActions ? 'visible' : 'hidden'"
+      class="actions"
+    >
+      <mat-icon [matMenuTriggerFor]="action">more_vert</mat-icon>
+      <mat-icon (click)="reply.emit(message)">reply</mat-icon>
+    </div>
     <img *ngIf="!currentUser" class="avatar" [src]="message.sender.picture" alt="Avatar" />
     <img
       *ngIf="message.photo"
       [src]="message.thumbnailUrl"
       alt=""
-      (click)="fullSize.emit(message.imgUrl)"
+      (click)="fullSizeImageUrl.emit(message.imgUrl)"
     />
     <div
       *ngIf="!message.photo"
@@ -15,9 +23,21 @@
     >
       <span [innerHTML]="message.text | link"></span>
     </div>
+    <div
+      *ngIf="!currentUser"
+      [style.visibility]="showActions ? 'visible' : 'hidden'"
+      class="actions"
+    >
+      <mat-icon [matMenuTriggerFor]="action">more_vert</mat-icon>
+      <mat-icon (click)="reply.emit(message)">reply</mat-icon>
+    </div>
   </div>
   <div *ngIf="!currentUser" class="nickname">
     {{ message.sender.nickname }}
   </div>
   <div class="time" [ngClass]="{ self: currentUser }">{{ time }}</div>
 </div>
+
+<mat-menu #action="matMenu" yPosition="above">
+  <button mat-menu-item>Remove</button>
+</mat-menu>

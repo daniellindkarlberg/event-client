@@ -60,11 +60,23 @@
           <mat-icon>{{ showEndDate ? 'remove' : 'add' }}</mat-icon>
           End Date and Time
         </div>
+
         <mat-form-field appearance="outline">
           <mat-label>Privacy</mat-label>
           <mat-select formControlName="privacy">
             <mat-option [value]="Privacy.PUBLIC">Public</mat-option>
             <mat-option [value]="Privacy.PRIVATE">Private</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Category</mat-label>
+          <mat-select formControlName="category">
+            <mat-select-trigger>{{ category }}</mat-select-trigger>
+            <mat-option *ngFor="let category of categories" [value]="category.value">
+              <mat-icon>{{ category.icon }}</mat-icon>
+              {{ category.name }}
+            </mat-option>
           </mat-select>
         </mat-form-field>
 
