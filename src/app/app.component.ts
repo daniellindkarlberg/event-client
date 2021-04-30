@@ -24,7 +24,6 @@ export class AppComponent {
   }
 
   navigateToUserSettings() {
-    console.log('hej');
     this.router.navigate(['user']);
   }
 
