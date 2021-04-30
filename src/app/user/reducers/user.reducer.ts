@@ -27,7 +27,7 @@ export const reducer = createReducer(
     loading: true,
   })),
 
-  on(UserActions.update, (state) => ({
+  on(UserActions.upload, (state) => ({
     ...state,
     loading: true,
   })),
@@ -42,11 +42,6 @@ export const reducer = createReducer(
     ...state,
     events,
     loading: false,
-  })),
-
-  on(UserActions.upload, (state) => ({
-    ...state,
-    loading: true,
   })),
 
   on(UserActions.uploadSuccess, (state, { url }) => ({

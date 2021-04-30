@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { UserActions } from '@user/actions';
 import { UserService } from '@user/services';
+import { ToastrService } from 'ngx-toastr';
 import { catchError, concatMap, map } from 'rxjs/operators';
 
 @Injectable()
@@ -35,7 +36,10 @@ export class UserEffects {
       ofType(UserActions.update),
       concatMap(({ user }) =>
         this.service.update(user).pipe(
-          map(() => UserActions.updateSuccess()),
+          map(
+            (response) => UserActions.updateSuccess({ user: response }),
+            this.toastr.success('Saved', '', { positionClass: 'toast-top-center' }),
+          ),
           catchError(() => [UserActions.updateFailure()]),
         ),
       ),
@@ -54,5 +58,9 @@ export class UserEffects {
     ),
   );
 
-  constructor(private readonly actions$: Actions, private readonly service: UserService) {}
+  constructor(
+    private readonly actions$: Actions,
+    private readonly service: UserService,
+    private readonly toastr: ToastrService,
+  ) {}
 }

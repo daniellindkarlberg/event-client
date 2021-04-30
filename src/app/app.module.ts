@@ -16,6 +16,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { UserModule } from '@user/user.module';
+import { ToastrModule } from 'ngx-toastr';
 import { HttpErrorInterceptor } from './services/http-error.interceptor';
 
 import { effects as authEffects } from '@auth/effects';
@@ -56,6 +57,7 @@ import { AppRoutingModule } from './app.routing';
     UserModule,
     EventModule,
     CoreModule,
+    ToastrModule.forRoot(),
   ],
   exports: [RouterModule],
   providers: [

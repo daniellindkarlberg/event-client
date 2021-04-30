@@ -17,10 +17,9 @@
   min-width: 325px;
 
   .created {
-    color: $dark-mode-text;
+    color: #bdbdbd;
 
     .header {
-      font-size: 18px;
       font-weight: 600;
       margin-bottom: 5px;
     }
@@ -32,9 +31,10 @@
   }
 
   .picture-wrapper {
+    cursor: pointer;
+    position: relative;
     width: 80px;
     height: 80px;
-    position: relative;
     margin-bottom: 15px;
 
     mat-spinner {

@@ -14,7 +14,10 @@ export const getEventsSuccess = createAction(
 export const getEventsFailure = createAction('[User] Get Failure');
 
 export const update = createAction('[User] Update', props<{ user: Partial<User> }>());
-export const updateSuccess = createAction('[User] Update Success');
+export const updateSuccess = createAction(
+  '[User] Update Success',
+  props<{ user: Partial<User> }>(),
+);
 export const updateFailure = createAction('[User] Update Failure');
 
 export const upload = createAction('[User] Upload', props<{ file: File }>());

@@ -26,6 +26,10 @@ export class UserComponent {
     });
   }
 
+  update() {
+    this.store.dispatch(UserActions.update({ user: { nickname: this.nickname.value } }));
+  }
+
   upload(event: any) {
     const reader = new FileReader();
     const [file] = event.target.files;
