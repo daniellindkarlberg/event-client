@@ -14,6 +14,7 @@ export const initialState: State = {
   nickname: '',
   email: '',
   picture: '',
+  created_at: '',
   loading: false,
   events: [],
 };
@@ -43,7 +44,18 @@ export const reducer = createReducer(
     loading: false,
   })),
 
-  on(UserActions.getFailure, UserActions.updateFailure, (state) => ({
+  on(UserActions.upload, (state) => ({
+    ...state,
+    loading: true,
+  })),
+
+  on(UserActions.uploadSuccess, (state, { url }) => ({
+    ...state,
+    picture: url,
+    loading: false,
+  })),
+
+  on(UserActions.getFailure, UserActions.updateFailure, UserActions.uploadFailure, (state) => ({
     ...state,
     loading: false,
   })),

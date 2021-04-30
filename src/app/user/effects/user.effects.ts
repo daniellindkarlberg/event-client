@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, concatMap, catchError } from 'rxjs/operators';
-
-import { UserService } from '@user/services';
 import { UserActions } from '@user/actions';
+import { UserService } from '@user/services';
+import { catchError, concatMap, map } from 'rxjs/operators';
 
 @Injectable()
 export class UserEffects {
@@ -38,6 +37,18 @@ export class UserEffects {
         this.service.update(user).pipe(
           map(() => UserActions.updateSuccess()),
           catchError(() => [UserActions.updateFailure()]),
+        ),
+      ),
+    ),
+  );
+
+  upload$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UserActions.upload),
+      concatMap(({ file }) =>
+        this.service.upload(file).pipe(
+          map(({ url }) => UserActions.uploadSuccess({ url })),
+          catchError((error) => [UserActions.uploadFailure({ error })]),
         ),
       ),
     ),

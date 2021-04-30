@@ -1,0 +1,56 @@
+@import 'variables';
+
+.container {
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 75px;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding: 25px;
+  box-sizing: border-box;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  min-width: 325px;
+
+  .created {
+    color: $dark-mode-text;
+
+    .header {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+  }
+
+  mat-form-field {
+    width: 100%;
+    margin-top: 15px;
+  }
+
+  .picture-wrapper {
+    width: 80px;
+    height: 80px;
+    position: relative;
+    margin-bottom: 15px;
+
+    mat-spinner {
+      position: absolute;
+      top: 25px;
+      left: 25px;
+    }
+    .picture {
+      vertical-align: middle;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+
+      &.loading {
+        opacity: 0.6;
+      }
+    }
+  }
+}

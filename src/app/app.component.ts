@@ -23,6 +23,11 @@ export class AppComponent {
     this.router.navigate(['events', 'create']);
   }
 
+  navigateToUserSettings() {
+    console.log('hej');
+    this.router.navigate(['user']);
+  }
+
   logout() {
     this.store.dispatch(AuthActions.logout());
   }

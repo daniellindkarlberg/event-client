@@ -5,7 +5,14 @@
         <ng-template matStepLabel>Details</ng-template>
         <mat-form-field hintLabel="Max 50 characters" appearance="outline">
           <mat-label>Event name</mat-label>
-          <input matInput #input maxlength="50" placeholder="Event name" formControlName="name" />
+          <input
+            matInput
+            #input
+            maxlength="50"
+            placeholder="Event name"
+            formControlName="name"
+            spellcheck="false"
+          />
           <mat-hint align="end">{{ input.value?.length || 0 }}/50</mat-hint>
         </mat-form-field>
 

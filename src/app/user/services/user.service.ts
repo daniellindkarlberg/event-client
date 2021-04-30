@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { User } from '@user/models';
 
 import { environment } from '@envs/environment';
@@ -20,5 +20,12 @@ export class UserService {
 
   update(user: Partial<User>) {
     return this.http.patch(this.apiUrl, user);
+  }
+
+  upload(file: File) {
+    const formData = new FormData();
+    formData.append('image', file);
+
+    return this.http.post<{ url: string }>(`${this.apiUrl}/upload`, formData);
   }
 }

@@ -28,6 +28,7 @@ export const getUserState = createFeatureSelector<fromUser.State>('user');
 export const getUser = createSelector(getUserState, (state) => state);
 export const getUserPicture = createSelector(getUserState, (state) => state.picture);
 export const getUserEvents = createSelector(getUserState, (state) => state.events);
+export const getUserLoading = createSelector(getUserState, (state) => state.loading);
 
 // EVENT STATE
 export const getEventState = createFeatureSelector<fromEvent.State>('event');

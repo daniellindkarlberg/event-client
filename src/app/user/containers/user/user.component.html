@@ -1,1 +1,26 @@
-<p>user works!</p>
+<div class="container">
+  <div class="content">
+    <div class="picture-wrapper">
+      <mat-spinner *ngIf="loading$ | async" [diameter]="30"></mat-spinner>
+      <img
+        class="picture"
+        [src]="picture"
+        alt="Picture"
+        (click)="fileUpload.click()"
+        [ngClass]="{ loading: loading$ | async }"
+      />
+    </div>
+
+    <div>{{ email }}</div>
+    <mat-form-field appearance="outline">
+      <mat-label>Nickname</mat-label>
+      <input matInput [formControl]="nickname" spellcheck="false" />
+    </mat-form-field>
+    <div class="created">
+      <div class="header">Account created on</div>
+      <div>{{ createdAt }}</div>
+    </div>
+  </div>
+</div>
+
+<input #fileUpload type="file" accept="image/*" (change)="upload($event)" />
