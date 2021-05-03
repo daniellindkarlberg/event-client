@@ -2,7 +2,13 @@
   <div class="event" *ngFor="let event of events$ | async" (click)="navigateToEvent(event.id)">
     <img [style.top.px]="event.photo.positionTop" [src]="event.photo.thumbnailUrl" alt="image" />
     <div class="content">
-      <div class="date">{{ event.startDate | dateAndTime }}</div>
+      <div class="date">
+        <span>{{ event.startDate | dateAndTime }}</span>
+        <span *ngIf="event.endDate">
+          <span>&nbsp;-&nbsp;</span>
+          {{ event.endDate | dateAndTime }}
+        </span>
+      </div>
       <div class="name" [style.color]="event.theme.primaryColor">
         {{ event.name }}
       </div>

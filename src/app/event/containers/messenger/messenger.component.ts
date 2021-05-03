@@ -81,6 +81,7 @@ export class MessengerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
+    setTimeout(() => this.scrollToBottom(), 200);
     fromEvent(this.content.nativeElement, 'scroll')
       .pipe(
         tap(({ target: { scrollTop, scrollHeight } }) => {

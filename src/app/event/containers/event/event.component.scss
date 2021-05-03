@@ -132,6 +132,12 @@
   .row {
     display: flex;
     align-items: flex-end;
+
+    &.date {
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
   }
 
   .card {
@@ -182,11 +188,6 @@
       color: $light-orange;
       margin-right: 5px;
     }
-  }
-
-  .date {
-    margin-bottom: 10px;
-    display: flex;
   }
 
   .guests {

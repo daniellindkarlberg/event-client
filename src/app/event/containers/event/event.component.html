@@ -83,7 +83,13 @@
       </div>
       <div class="row date">
         <mat-icon>access_time_filled</mat-icon>
-        <div>{{ event.startDate | dateAndTime }}</div>
+        <div>
+          <span>{{ event.startDate | dateAndTime }}</span>
+          <span *ngIf="event.endDate">
+            <span>&nbsp;-&nbsp;</span>
+            {{ event.endDate | dateAndTime }}
+          </span>
+        </div>
       </div>
       <div class="header-details">Description</div>
       <div class="description">{{ event.description }}</div>

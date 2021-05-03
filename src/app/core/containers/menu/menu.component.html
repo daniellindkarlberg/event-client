@@ -1,5 +1,5 @@
 <div class="menu">
-  <div class="logo">EVENTFULLY</div>
+  <div class="logo" (click)="navigateToEvents.emit()">EVENTFULLY</div>
   <div *ngIf="!mobile" class="navigation">
     <div class="item" (click)="navigateToEvents.emit()">
       <mat-icon>list</mat-icon>
