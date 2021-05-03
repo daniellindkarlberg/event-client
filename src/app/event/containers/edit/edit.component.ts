@@ -12,6 +12,7 @@ import { MapDialogComponent } from '@event/components';
 import { Category, Event, EventLocation, Host, Image, Privacy, Theme } from '@event/models';
 import { select, Store } from '@ngrx/store';
 import { getEvent, getLoading, getUser, State } from '@root/reducers';
+import { categories } from '@utils/categories';
 import {
   dateValidation,
   getFilteredSelectOptions,
@@ -74,29 +75,9 @@ export class EditComponent implements OnInit, OnDestroy {
   locationSelected = false;
   showEndDate = false;
   mobile = false;
+  tablet = false;
 
-  categories: Category[] = [
-    { name: 'Art', value: 'art', icon: 'palette' },
-    { name: 'Causes', value: 'causes', icon: 'bookmark' },
-    { name: 'Comedy', value: 'comedy', icon: 'sentiment_very_satisfied' },
-    { name: 'Crafs', value: 'crafts', icon: 'content_cut' },
-    { name: 'Drinks', value: 'drinks', icon: 'nightlife' },
-    { name: 'Film', value: 'film', icon: 'videocam' },
-    { name: 'Fitness', value: 'fitness', icon: 'fitness_center' },
-    { name: 'Food', value: 'food', icon: 'restaurant' },
-    { name: 'Games', value: 'games', icon: 'games' },
-    { name: 'Gardening', value: 'gardening', icon: 'local_florist' },
-    { name: 'Health', value: 'health', icon: 'health_and_safety' },
-    { name: 'Home', value: 'home', icon: 'home' },
-    { name: 'Literature', value: 'literature', icon: 'menu_book' },
-    { name: 'Music', value: 'music', icon: 'audiotrack' },
-    { name: 'Networking', value: 'networking', icon: 'share' },
-    { name: 'Party', value: 'party', icon: 'cake' },
-    { name: 'Shopping', value: 'shopping', icon: 'shopping_bag' },
-    { name: 'Sports', value: 'sports', icon: 'sports_soccer' },
-    { name: 'Theatre', value: 'theatre', icon: 'theater_comedy' },
-    { name: 'Wellness', value: 'wellness', icon: 'spa' },
-  ];
+  categories: Category[] = categories;
   hours = {
     [Time.START]: [] as Hour[],
     [Time.END]: [] as Hour[],
@@ -110,7 +91,7 @@ export class EditComponent implements OnInit, OnDestroy {
       endDate: new FormControl(null),
       endTime: new FormControl(null),
       privacy: new FormControl(Privacy.PUBLIC),
-      category: new FormControl('value'),
+      category: new FormControl(''),
     },
     Validators.compose([dateValidation, timeValidation]),
   );
@@ -141,6 +122,7 @@ export class EditComponent implements OnInit, OnDestroy {
     private deviceService: DeviceDetectorService,
   ) {
     this.mobile = this.deviceService.isMobile();
+    this.tablet = this.deviceService.isTablet();
     this.eventId = this.route.snapshot.paramMap.get('id');
     this.store
       .pipe(select(getEvent))
@@ -230,6 +212,10 @@ export class EditComponent implements OnInit, OnDestroy {
     return this.detailsForm.hasError('invalidTime');
   }
 
+  get mobileOrTablet() {
+    return this.mobile || this.tablet;
+  }
+
   fileChange({ file, imageSrc }: Image) {
     this.photoForm.patchValue({ file });
     this.imageSrc = imageSrc;
@@ -296,12 +282,13 @@ export class EditComponent implements OnInit, OnDestroy {
   }
 
   openMapDialog() {
+    const size = this.mobile ? 250 : 500;
     const dialogRef = this.dialog.open(MapDialogComponent, {
       disableClose: true,
       data: {
         location: this.location,
-        width: this.mobile ? 250 : 500,
-        height: this.mobile ? 250 : 500,
+        width: size,
+        height: size,
       },
       autoFocus: false,
     });

@@ -1,5 +1,5 @@
-<div [ngClass]="{ container: !mobile }">
-  <mat-vertical-stepper [ngClass]="{ mobile: mobile }" [linear]="true" #stepper>
+<div [ngClass]="{ container: !mobileOrTablet }">
+  <mat-vertical-stepper [ngClass]="{ mobile: mobileOrTablet }" [linear]="true" #stepper>
     <mat-step [stepControl]="detailsForm">
       <form class="form" [formGroup]="detailsForm">
         <ng-template matStepLabel>Details</ng-template>
@@ -16,7 +16,7 @@
           <mat-hint align="end">{{ input.value?.length || 0 }}/50</mat-hint>
         </mat-form-field>
 
-        <div class="date" [ngClass]="{ mobile: mobile }">
+        <div class="date" [ngClass]="{ mobile: mobileOrTablet }">
           <mat-form-field appearance="outline" [ngClass]="{ error: invalidDate }">
             <mat-label>Start date</mat-label>
             <input
@@ -37,7 +37,7 @@
           ></app-time-select>
         </div>
 
-        <div *ngIf="showEndDate" class="date" [ngClass]="{ mobile: mobile }">
+        <div *ngIf="showEndDate" class="date" [ngClass]="{ mobile: mobileOrTablet }">
           <mat-form-field appearance="outline" [ngClass]="{ error: invalidDate }">
             <mat-label>End date</mat-label>
             <input
@@ -136,9 +136,9 @@
       <form class="form" [formGroup]="photoForm">
         <ng-template matStepLabel>Cover Photo</ng-template>
         <app-image-select
-          [ngClass]="{ mobile: mobile }"
+          [ngClass]="{ mobile: mobileOrTablet }"
           [src]="imageSrc"
-          [mobile]="mobile"
+          [mobile]="mobileOrTablet"
           (positionChange)="photoPositionTop = $event"
           (fileChange)="fileChange($event)"
           (fileReset)="fileReset()"
@@ -171,7 +171,7 @@
       <form class="form" [formGroup]="inviteForm">
         <ng-template matStepLabel>Invite</ng-template>
 
-        <div class="emails" [ngClass]="{ mobile: mobile }" formArrayName="emails">
+        <div class="emails" [ngClass]="{ mobile: mobileOrTablet }" formArrayName="emails">
           <mat-icon
             class="add"
             [style.visibility]="emails.controls.length < 5 ? 'visible' : 'hidden'"
@@ -205,7 +205,7 @@
   </mat-vertical-stepper>
 
   <app-preview
-    *ngIf="!mobile"
+    *ngIf="!mobileOrTablet"
     [host]="host"
     [name]="name"
     [startDate]="startDate"

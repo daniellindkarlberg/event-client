@@ -1,5 +1,5 @@
 <div *ngIf="!(loading$ | async)" class="container" [ngClass]="{ 'messenger-open': showMessenger }">
-  <div class="photo" [style.background]="photoBackground">
+  <div class="photo" [ngClass]="{ mobile: mobile }" [style.background]="photoBackground">
     <img [style.top.px]="event.photo.positionTop" [src]="event.photo.imgUrl" alt="image" />
   </div>
 
@@ -52,16 +52,10 @@
         <button mat-menu-item [disabled]="currentUserAttending" (click)="addGuest()">Yes</button>
         <button mat-menu-item [disabled]="!currentUserAttending" (click)="removeGuest()">No</button>
       </mat-menu>
-      <ng-container *ngIf="event.host.id === userId">
-        <button mat-button>
-          <mat-icon>mail_outline</mat-icon>
-          <span>Invite</span>
-        </button>
-        <button mat-button (click)="edit()">
-          <mat-icon>create</mat-icon>
-          <span>Edit</span>
-        </button>
-      </ng-container>
+      <button *ngIf="event.host.id === userId" mat-button (click)="edit()">
+        <mat-icon>create</mat-icon>
+        <span>Edit</span>
+      </button>
     </div>
   </div>
   <div class="details">

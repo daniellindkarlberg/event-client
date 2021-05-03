@@ -22,6 +22,10 @@
   align-items: center;
   position: relative;
 
+  &.mobile {
+    height: 225px;
+  }
+
   img {
     position: relative;
     height: 125%;
