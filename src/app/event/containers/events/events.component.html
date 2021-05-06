@@ -18,7 +18,7 @@
       </div>
       <div class="details">
         <mat-icon>place</mat-icon>
-        {{ event.location.address }}
+        <span class="address">{{ event.location.address }}</span>
       </div>
       <div class="details">
         <mat-icon>{{ event.privacy === Privacy.PUBLIC ? 'public' : 'locked' }}</mat-icon>

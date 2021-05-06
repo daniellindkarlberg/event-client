@@ -15,7 +15,7 @@
 }
 
 .photo {
-  height: 350px;
+  height: 450px;
   overflow: hidden;
   display: flex;
   justify-content: center;
@@ -187,6 +187,7 @@
     .description {
       max-width: 500px;
       white-space: pre-line;
+      margin-top: 10px;
     }
 
     mat-icon {

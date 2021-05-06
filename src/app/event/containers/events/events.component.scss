@@ -42,7 +42,7 @@
 }
 
 .date {
-  max-width: 230px;
+  max-width: 250px;
   white-space: pre-line;
   min-height: 35px;
   font-size: 14px;
@@ -68,6 +68,13 @@
   display: flex;
   align-items: center;
   margin-top: 5px;
+
+  .address {
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
   mat-icon {
     color: $light-orange;
