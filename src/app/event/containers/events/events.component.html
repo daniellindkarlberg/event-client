@@ -12,15 +12,19 @@
       <div class="name" [style.color]="event.theme.primaryColor">
         {{ event.name }}
       </div>
-      <div class="location">
+      <div class="details">
+        <mat-icon>people</mat-icon>
+        {{ event.attending }} Going
+      </div>
+      <div class="details">
         <mat-icon>place</mat-icon>
         {{ event.location.address }}
       </div>
-      <div class="privacy">
+      <div class="details">
         <mat-icon>{{ event.privacy === Privacy.PUBLIC ? 'public' : 'locked' }}</mat-icon>
         {{ event.privacy === Privacy.PUBLIC ? 'Public' : 'Private' }} Event
       </div>
-      <div class="category">
+      <div class="details">
         <mat-icon>{{ event.category.icon }}</mat-icon>
         {{ event.category.name }}
       </div>

@@ -107,8 +107,8 @@ export class EditComponent implements OnInit, OnDestroy {
     file: new FormControl('', Validators.required),
   });
   themeForm = new FormGroup({
-    name: new FormControl(''),
-    primaryColor: new FormControl(''),
+    name: new FormControl('deep-orange'),
+    primaryColor: new FormControl('rgb(255, 112, 67)'),
     darkMode: new FormControl(false),
   });
   inviteForm = new FormGroup({

@@ -12,6 +12,7 @@ export interface Event {
   theme: Theme;
   photo: Photo;
   guests: Partial<User>[];
+  attending: number;
 }
 
 export interface EventLocation {
