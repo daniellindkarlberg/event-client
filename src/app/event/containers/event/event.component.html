@@ -60,15 +60,16 @@
   </div>
   <div class="details">
     <div class="card">
-      <div class="header-details">Host</div>
       <div class="host">
+        <mat-icon>tour</mat-icon>
+        <div>Event by</div>
+        <div class="username">{{ event.host.username }}</div>
         <img [src]="event.host.picture" alt="Avatar" class="avatar" />
-        <div>{{ event.host.nickname }}</div>
       </div>
-      <div class="header-details">Going</div>
       <div class="row">
         <mat-icon>people</mat-icon>
-        <div>{{ event.guests.length }}</div>
+        <div class="guest-count">{{ event.guests.length }}</div>
+        <span>{{ event.guests.length > 1 ? 'people' : 'person' }} going</span>
       </div>
       <div class="row guests">
         <div *ngFor="let guest of event.guests">
@@ -85,7 +86,6 @@
           </span>
         </div>
       </div>
-      <div class="header-details">Description</div>
       <div class="description">{{ event.description }}</div>
     </div>
     <div class="card">

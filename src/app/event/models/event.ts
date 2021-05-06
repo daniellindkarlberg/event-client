@@ -28,7 +28,7 @@ export interface Photo {
 
 export interface Host {
   id: string;
-  nickname: string;
+  username: string;
   picture: string;
 }
 

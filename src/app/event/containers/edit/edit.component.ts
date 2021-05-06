@@ -127,15 +127,15 @@ export class EditComponent implements OnInit, OnDestroy {
     this.store
       .pipe(select(getEvent))
       .pipe(
-        filter((event) => !!event),
+        filter((event) => Boolean(event)),
         takeUntil(this.destroy$),
       )
       .subscribe((event) => this.setInitialValues(event));
     this.store.pipe(select(getUser), takeUntil(this.destroy$)).subscribe(
-      ({ user_id, nickname, picture }) =>
+      ({ user_id: id, username, picture }) =>
         (this.host = {
-          id: user_id,
-          nickname,
+          id,
+          username,
           picture,
         }),
     );

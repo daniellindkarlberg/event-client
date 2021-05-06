@@ -75,6 +75,7 @@
 }
 
 img {
+  display: block;
   cursor: pointer;
   max-width: 200px;
   height: auto;
@@ -82,7 +83,7 @@ img {
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
-.nickname {
+.username {
   margin-top: 5px;
   font-size: 12px;
   font-weight: 600;

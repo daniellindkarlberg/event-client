@@ -44,6 +44,12 @@ export const reducer = createReducer(
     loading: false,
   })),
 
+  on(UserActions.updateSuccess, (state, { user }) => ({
+    ...state,
+    username: user.username,
+    loading: false,
+  })),
+
   on(UserActions.uploadSuccess, (state, { url }) => ({
     ...state,
     picture: url,

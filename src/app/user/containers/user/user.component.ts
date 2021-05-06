@@ -15,19 +15,19 @@ export class UserComponent {
   email = '';
   createdAt = '';
   picture = '';
-  nickname = new FormControl('', Validators.required);
+  username = new FormControl('', Validators.required);
 
   constructor(private readonly store: Store<State>) {
-    this.store.pipe(select(getUser)).subscribe(({ nickname, picture, created_at, email }) => {
+    this.store.pipe(select(getUser)).subscribe(({ username, picture, created_at, email }) => {
       this.createdAt = moment(created_at).format('LLLL');
-      this.picture = picture;
-      this.nickname.patchValue(nickname);
+      this.picture = `${picture}?${new Date()}`;
+      this.username.patchValue(username);
       this.email = email;
     });
   }
 
   update() {
-    this.store.dispatch(UserActions.update({ user: { nickname: this.nickname.value } }));
+    this.store.dispatch(UserActions.update({ user: { username: this.username.value } }));
   }
 
   upload(event: any) {

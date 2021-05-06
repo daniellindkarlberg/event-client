@@ -138,6 +138,8 @@
     align-items: flex-end;
 
     &.date {
+      max-width: 350px;
+      white-space: pre-line;
       margin-bottom: 10px;
       display: flex;
       align-items: center;
@@ -161,15 +163,14 @@
       align-items: center;
       margin-bottom: 10px;
 
+      .username {
+        font-weight: 600;
+        margin: 0 5px;
+      }
+
       img {
         margin-right: 10px;
       }
-    }
-
-    .header-details {
-      font-weight: 600;
-      font-size: 18px;
-      margin-bottom: 5px;
     }
 
     .avatar {
@@ -184,8 +185,8 @@
     }
 
     .description {
-      overflow-wrap: break-word;
-      overflow-y: auto;
+      max-width: 500px;
+      white-space: pre-line;
     }
 
     mat-icon {
@@ -194,8 +195,15 @@
     }
   }
 
+  .guest-count {
+    margin-right: 5px;
+  }
+
   .guests {
     margin: 10px 0;
+    display: flex;
+    max-width: 500px;
+    flex-wrap: wrap;
   }
 
   .location {

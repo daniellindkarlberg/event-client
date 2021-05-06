@@ -129,7 +129,7 @@ export class MessengerComponent implements OnInit, AfterViewInit, OnDestroy {
           text: this.messageForm.value,
           ...(this.activeReply && {
             reply: true,
-            replyTo: this.replyToMessage.sender.nickname,
+            replyTo: this.replyToMessage.sender.username,
             originalMessage: this.replyToMessage.text,
           }),
         },

@@ -5,12 +5,16 @@
       <div class="date">
         <span>{{ event.startDate | dateAndTime }}</span>
         <span *ngIf="event.endDate">
-          <span>&nbsp;-&nbsp;</span>
+          <span class="dash">&nbsp;-&nbsp;</span>
           {{ event.endDate | dateAndTime }}
         </span>
       </div>
       <div class="name" [style.color]="event.theme.primaryColor">
         {{ event.name }}
+      </div>
+      <div class="location">
+        <mat-icon>place</mat-icon>
+        {{ event.location.address }}
       </div>
       <div class="privacy">
         <mat-icon>{{ event.privacy === Privacy.PUBLIC ? 'public' : 'locked' }}</mat-icon>

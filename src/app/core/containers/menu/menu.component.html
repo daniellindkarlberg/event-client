@@ -10,7 +10,7 @@
       <div>Create Event</div>
     </div>
     <div class="item">
-      <img [src]="userPicture" alt="Avatar" class="avatar" [matMenuTriggerFor]="menu" />
+      <img [src]="picture" alt="Avatar" class="avatar" [matMenuTriggerFor]="menu" />
       <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="navigateToUserSettings.emit()">Settings</button>
         <button mat-menu-item (click)="logout.emit()">Sign out</button>

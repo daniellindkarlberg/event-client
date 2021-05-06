@@ -32,8 +32,8 @@
       <mat-icon (click)="reply.emit(message)">reply</mat-icon>
     </div>
   </div>
-  <div *ngIf="!currentUser" class="nickname">
-    {{ message.sender.nickname }}
+  <div *ngIf="!currentUser" class="username">
+    {{ message.sender.username }}
   </div>
   <div class="time" [ngClass]="{ self: currentUser }">{{ time }}</div>
 </div>
