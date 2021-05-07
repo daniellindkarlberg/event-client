@@ -37,7 +37,6 @@
     >
       chat
     </mat-icon>
-
     <div class="actions">
       <button
         *ngIf="event.host.id !== userId"
@@ -58,6 +57,7 @@
       </button>
     </div>
   </div>
+
   <div class="details">
     <div class="card">
       <div class="host">
@@ -99,6 +99,7 @@
   *ngIf="showMessenger"
   [userId]="userId"
   [event]="event"
+  [mobile]="mobile"
   (closeMessenger)="showMessenger = false"
 ></app-messenger>
 <app-loader *ngIf="loading$ | async"></app-loader>

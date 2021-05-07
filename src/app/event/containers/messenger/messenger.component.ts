@@ -43,6 +43,7 @@ export class MessengerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @Input() userId = '';
   @Input() event = {} as Event;
+  @Input() mobile = false;
   @Output() closeMessenger = new EventEmitter<void>();
 
   messages: Message[] = [];
@@ -140,7 +141,7 @@ export class MessengerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   keypress(event: KeyboardEvent) {
-    if (event.key === 'Enter' && !event.shiftKey) {
+    if (event.key === 'Enter' && !event.shiftKey && !this.mobile) {
       event.preventDefault();
       if (this.messageForm.valid) {
         this.send();

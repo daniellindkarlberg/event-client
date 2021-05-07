@@ -22,8 +22,8 @@ export class PreviewComponent {
   @Input() startTime = '';
   @Input() endDate = '';
   @Input() endTime = '';
-  @Input() description = '';
   @Input() location = {} as EventLocation;
+  @Input() description = '';
   @Input() imageSrc = '';
   @Input() photoPositionTop = 0;
   @Input() color = '';

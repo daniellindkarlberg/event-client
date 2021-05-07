@@ -32,7 +32,13 @@
         <div class="top"></div>
         <div class="day">{{ day }}</div>
       </div>
-      <div class="date">{{ formattedStartDate }} AT {{ startTime }}</div>
+      <div class="date">
+        <span>{{ formattedStartDate }} AT {{ startTime }}</span>
+        <span *ngIf="endDate">
+          <span>&nbsp;-&nbsp;</span>
+          {{ formattedEndDate }} AT {{ endTime }}
+        </span>
+      </div>
       <div class="name" [style.color]="color">{{ name }}</div>
       <div class="name untitled" *ngIf="!name">Event Name</div>
       <div class="location">{{ location.address }}</div>

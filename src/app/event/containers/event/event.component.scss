@@ -180,7 +180,7 @@
       border-radius: 50%;
 
       &.guest {
-        margin-right: 10px;
+        margin: 0 10px 5px 0;
       }
     }
 
@@ -203,7 +203,7 @@
   .guests {
     margin: 10px 0;
     display: flex;
-    max-width: 500px;
+    max-width: 320px;
     flex-wrap: wrap;
   }
 
